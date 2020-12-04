@@ -15,8 +15,6 @@ sudo pacman -S nvidia
 
 ### Desktop
 sudo pacman -S xorg xorg-xinit
-sudo pacman -S xmonad xmonad-contrib xmobar
-sudo pacman -S nitrogen picom volumeicon
 sudo pacman -S i3wm
 
 ### Audio
