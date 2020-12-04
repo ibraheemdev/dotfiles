@@ -1,5 +1,5 @@
 [colors]
-background = #282828
+background = #1d2021
 background-alt = #444
 foreground = #d3d0c8
 foreground-alt = #eeeeee
@@ -13,12 +13,14 @@ senary = #66cccc
 septenary = #d3d0c8
 
 [bar/main]
+monitor = "HDMI-0"
 width = 100%
 height = 25
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
 fixed-center = false
+bottom = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -43,7 +45,7 @@ font-2 = siji:pixelsize=12;1
 
 modules-left = i3
 modules-center = 
-modules-right = xkeyboard memory cpu eth temperature date powermenu
+modules-right = alsa xkeyboard memory cpu temperature date powermenu
 
 tray-position = right
 tray-padding = 5
