@@ -34,8 +34,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# start rofi (a program launcher)
+bindsym $mod+d exec --no-startup-id rofi -show run
 
 # change focus
 bindsym $mod+j focus left
@@ -89,8 +89,8 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
+set $ws1 "1: code"
+set $ws2 "2: web"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
