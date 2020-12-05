@@ -45,7 +45,7 @@ font-2 = siji:pixelsize=12;1
 
 modules-left = i3
 modules-center = 
-modules-right = alsa xkeyboard memory cpu temperature date powermenu
+modules-right = pulseaudio-control xkeyboard memory cpu temperature date powermenu
 
 tray-position = right
 tray-padding = 5
@@ -103,23 +103,6 @@ label-urgent = " %name% "
 label-urgent-background = ${colors.background-alt}
 label-urgent-padding = 2
 
-[module/xbacklight]
-type = internal/xbacklight
-
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
 [module/cpu]
 type = internal/cpu
 interval = 2
@@ -153,35 +136,19 @@ format-prefix-foreground = ${colors.primary}
 format-underline = #0a6cf5
 format-foreground = ${colors.primary}
 
-label = %date% %time%
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+format-underline = ${colors.cyan}
+label-padding = 2
+label-foreground = ${colors.foreground}
 
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${root.foreground}
-
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo-extra1: Monitor" listen
+click-right = exec pavucontrol &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control next-sink
+scroll-up = pulseaudio-control --volume-max 130 up
+scroll-down = pulseaudio-control --volume-max 130 down
 
 [module/temperature]
 type = internal/temperature
