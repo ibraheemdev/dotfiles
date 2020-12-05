@@ -136,6 +136,8 @@ format-prefix-foreground = ${colors.primary}
 format-underline = #0a6cf5
 format-foreground = ${colors.primary}
 
+label = %date% %time%
+
 [module/pulseaudio-control]
 type = custom/script
 tail = true
