@@ -19,7 +19,8 @@ sudo pacman -S xorg xorg-xinit
 sudo pacman -S i3wm rofi
 
 ### Audio
-sudo pacman -S alsa-utils alsasoundconf
+sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavucontrol
+sudo yay -S pulseaudio-control
 
 ### Terminal
 sudo pacman -S alacritty
