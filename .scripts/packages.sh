@@ -8,7 +8,7 @@ cd ..
 # Packages I Have Installed
 
 # Essential
-sudo pacman -S git vim openssh
+sudo pacman -S git vim openssh sudo tree lm_sensors
  
 # Graphics Card
 sudo pacman -S nvidia
