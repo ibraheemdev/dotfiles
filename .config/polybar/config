@@ -139,7 +139,7 @@ format-underline = ${colors.cyan}
 label-padding = 2
 label-foreground = ${colors.foreground}
 
-exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo-extra1: Monitor" listen
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" listen
 click-right = exec pavucontrol &
 click-left = pulseaudio-control togmute
 click-middle = pulseaudio-control next-sink
