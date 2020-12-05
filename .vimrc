@@ -13,8 +13,8 @@ set laststatus=2
 " color scheme
 set background=dark
 let base16colorspace=256
-let g:base16_shell_path="~/.vim/plugged/base16-vim/colors"
-colorscheme base16-gruvbox-dark-soft
+let g:base16_shell_path="~/.scripts/base16/"
+colorscheme base16-gruvbox-dark-hard
 syntax on
 
 " airline config
