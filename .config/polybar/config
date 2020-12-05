@@ -2,22 +2,16 @@
 background = #1d2021
 background-alt = #444
 foreground = #d3d0c8
-foreground-alt = #eeeeee
-primary = #f2777a
-secondary = #99cc99
-tertiary = #ffcc66
-alert = #ffcc66
-quaternary = #6699cc
-quinary = #cc99cc
-senary = #66cccc
-septenary = #d3d0c8
+red = #fb4934
+blue = #83a598
+yellow = #fabd2f
+aqua = #8ec07c
+purple = #d3869b
 
 [bar/main]
 monitor = "HDMI-0"
 width = 100%
 height = 25
-;offset-x = 1%
-;offset-y = 1%
 radius = 0.0
 fixed-center = false
 bottom = true
@@ -62,17 +56,17 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = " "
-format-prefix-foreground = ${colors.senary}
-format-prefix-underline = ${colors.secondary}
-format-foreground = ${colors.senary}
+format-prefix-foreground = ${colors.blue}
+format-prefix-underline = ${colors.blue}
+format-foreground = ${colors.blue}
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-layout-underline = ${colors.blue}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label-indicator-background = ${colors.blue}
+label-indicator-underline = ${colors.blue}
 
 
 [module/i3]
@@ -83,13 +77,13 @@ enable-scroll = false
 
 label-mode-padding = 2
 label-mode-foreground = #000
-label-mode-background = ${colors.primary}
+label-mode-background = ${colors.red}
 
 label-focused = " %name% "
 label-focused-background = ${colors.background}
-label-focused-underline = ${colors.primary}
+label-focused-underline = ${colors.red}
 label-focused-padding = 2
-label-focused-foreground = ${colors.primary}
+label-focused-foreground = ${colors.red}
 
 label-unfocused = " %name% "
 label-unfocused-padding = 2
@@ -107,8 +101,8 @@ label-urgent-padding = 2
 type = internal/cpu
 interval = 2
 format-prefix = ""
-format-prefix-foreground = ${colors.quaternary}
-format-foreground = ${colors.quaternary}
+format-prefix-foreground = ${colors.aqua}
+format-foreground = ${colors.aqua}
 format-underline = #f90000
 label = %percentage:2%%
 
@@ -116,8 +110,8 @@ label = %percentage:2%%
 type = internal/memory
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.quinary}
-format-foreground = ${colors.quinary}
+format-prefix-foreground = ${colors.purple}
+format-foreground = ${colors.purple}
 format-underline = #4bffdc
 label = %percentage_used%%
 
@@ -132,9 +126,9 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = 
-format-prefix-foreground = ${colors.primary}
+format-prefix-foreground = ${colors.red}
 format-underline = #0a6cf5
-format-foreground = ${colors.primary}
+format-foreground = ${colors.red}
 
 label = %date% %time%
 
@@ -164,15 +158,15 @@ format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+label-warn-foreground = ${colors.blue}
 
 hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
 
 ramp-0 = 
 ramp-1 =  
 ramp-2 =  
-ramp-foreground = ${colors.secondary}
-label-foreground = ${colors.secondary}
+ramp-foreground = ${colors.blue}
+label-foreground = ${colors.blue}
 
 [module/powermenu]
 type = custom/menu
@@ -182,11 +176,11 @@ expand-right = true
 format-spacing = 1
 
 label-open = 
-label-open-foreground = ${colors.septenary}
+label-open-foreground = ${colors.foreground}
 label-close =  cancel
-label-close-foreground = ${colors.septenary}
+label-close-foreground = ${colors.foreground}
 label-separator = |
-label-separator-foreground = ${colors.septenary}
+label-separator-foreground = ${colors.foreground}
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
