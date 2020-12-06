@@ -17,6 +17,7 @@ let g:ale_lint_on_save = 1
 
 " ale rust config
 let g:ale_rust_rls_config = {'rust': {'clippy_preference': 'on'} }
+let g:ale_linters = {'rust': ['analyzer']}
 
 " ale visual config
 let g:airline#extensions#ale#enabled = 1

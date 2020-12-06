@@ -24,6 +24,9 @@ sudo yay -S pulseaudio-control
 # Terminal
 sudo pacman -S alacritty
 
+# Languages
+sudo pacman -S rust-analyzer
+
 # Browser
 sudo pacman -S firefox
 
