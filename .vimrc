@@ -39,6 +39,8 @@ Plug 'chriskempson/base16-vim'
 
 " fuzzy finder
 Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " language server
 Plug 'dense-analysis/ale'
