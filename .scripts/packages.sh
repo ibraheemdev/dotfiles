@@ -19,7 +19,7 @@ sudo pacman -S i3wm rofi
 
 # Audio
 sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavucontrol
-sudo yay -S pulseaudio-control
+yay -S pulseaudio-control
 
 # Terminal
 sudo pacman -S alacritty
@@ -31,4 +31,4 @@ sudo pacman -S rust-analyzer
 sudo pacman -S firefox
 
 # Fonts
-sudo yay -S siji-git nerd-fonts-complete
+yay -S ttf-ms-fonts nerd-fonts-complete
