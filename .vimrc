@@ -25,6 +25,10 @@ let g:ale_set_highlights = 0
 
 " TODO balloons are not working currently (dense-analysis/ale#2442)
 let g:ale_set_balloons = 1
+set ttymouse=sgr
+set balloondelay=250
+set ballooneval
+set balloonevalterm
 
 "move between ale errors
 nmap <silent> <C-u> <Plug>(ale_previous_wrap)
