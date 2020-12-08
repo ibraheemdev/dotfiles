@@ -35,7 +35,7 @@ module-margin-right = 3
 
 font-0 = RobotoMono Nerd Font:pixelsize=12;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=12;1
+font-2 = Verdana:pixelsize=12;1
 
 modules-left = i3
 modules-center = 
