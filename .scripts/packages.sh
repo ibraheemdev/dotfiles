@@ -32,3 +32,6 @@ sudo pacman -S firefox
 
 # Fonts
 yay -S ttf-ms-fonts nerd-fonts-complete
+
+# Node.js
+sudo pacman -S nodejs yarn
