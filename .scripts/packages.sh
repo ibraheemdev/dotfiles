@@ -35,3 +35,6 @@ yay -S ttf-ms-fonts nerd-fonts-complete
 
 # Node.js
 sudo pacman -S nodejs yarn
+
+# Java
+sudo pacman -S jre-openjdk
