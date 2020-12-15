@@ -6,3 +6,9 @@ alias dotfiles='/usr/bin/git --git-dir=/home/ibraheem/.dotfiles/ --work-tree=/ho
 
 # cargo bin
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# start printer services
+print-start() {
+  sudo systemctl start cups
+  sudo systemctl start avahi-daemon
+}
