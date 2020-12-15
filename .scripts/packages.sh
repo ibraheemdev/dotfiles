@@ -5,11 +5,12 @@ cd yay-git
 makepkg -si
 cd ..
 
-# Packages I Have Installed
-
 # Essential
 sudo pacman -S git vim openssh sudo tree lm_sensors
- 
+
+# Printer
+sudo pacman -S imagemagick cups avahi nss-mdns
+
 # Graphics Card
 sudo pacman -S nvidia
 
@@ -33,8 +34,6 @@ sudo pacman -S firefox
 # Fonts
 yay -S ttf-ms-fonts nerd-fonts-complete
 
-# Node.js
+# Dev
 sudo pacman -S nodejs yarn
-
-# Java
 sudo pacman -S jre-openjdk
