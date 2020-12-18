@@ -32,7 +32,7 @@ sudo pacman -S rust-analyzer
 sudo pacman -S firefox
 
 # Fonts
-yay -S ttf-ms-fonts nerd-fonts-complete
+yay -S ttf-roboto ttf-ms-fonts nerd-fonts-complete
 
 # Dev
 sudo pacman -S nodejs yarn
