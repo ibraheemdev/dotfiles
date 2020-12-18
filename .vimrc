@@ -2,8 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 " visual flair
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -147,15 +146,17 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 set signcolumn=number
 
 " color scheme
-set background=dark
-let base16colorspace=256
-let g:base16_shell_path="~/.scripts/base16/"
-colorscheme base16-gruvbox-dark-hard
-syntax on
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+syntax enable
+colorscheme dracula
 
 " airline config
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'base16_gruvbox_dark_hard'
+let g:airline_theme = 'dracula'
 
 " hide buffers
 set hidden
