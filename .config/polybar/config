@@ -1,12 +1,13 @@
 [colors]
-background = #1d2021
-background-alt = #444
-foreground = #d3d0c8
-red = #fb4934
-blue = #83a598
-yellow = #fabd2f
-aqua = #8ec07c
-purple = #d3869b
+background = #282a36
+background-alt = #44475a
+foreground = #f8f8f2
+red = #ff5555
+blue = #8be9fd
+yellow = #f1fa8c
+green = #50fa7b
+purple = #bd93f9
+pink = #ff79c6
 
 [bar/main]
 monitor = "HDMI-0"
@@ -56,17 +57,17 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = " "
-format-prefix-foreground = ${colors.blue}
-format-prefix-underline = ${colors.blue}
-format-foreground = ${colors.blue}
+format-prefix-foreground = ${colors.pink}
+format-prefix-underline = ${colors.pink}
+format-foreground = ${colors.pink}
 
 label-layout = %layout%
-label-layout-underline = ${colors.blue}
+label-layout-underline = ${colors.pink}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.blue}
-label-indicator-underline = ${colors.blue}
+label-indicator-background = ${colors.pink}
+label-indicator-underline = ${colors.pink}
 
 
 [module/i3]
@@ -101,8 +102,8 @@ label-urgent-padding = 2
 type = internal/cpu
 interval = 2
 format-prefix = ""
-format-prefix-foreground = ${colors.aqua}
-format-foreground = ${colors.aqua}
+format-prefix-foreground = ${colors.green}
+format-foreground = ${colors.green}
 format-underline = #f90000
 label = %percentage:2%%
 
@@ -135,7 +136,7 @@ label = %date% %time%
 [module/pulseaudio-control]
 type = custom/script
 tail = true
-format-underline = ${colors.cyan}
+format-underline = ${colors.green}
 label-padding = 2
 label-foreground = ${colors.foreground}
 
