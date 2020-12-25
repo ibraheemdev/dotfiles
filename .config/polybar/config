@@ -40,7 +40,7 @@ font-2 = Verdana:pixelsize=12;1
 
 modules-left = i3
 modules-center = 
-modules-right = pulseaudio-control xkeyboard memory cpu temperature date powermenu
+modules-right = pulseaudio-control memory cpu temperature date powermenu
 
 tray-position = right
 tray-padding = 5
@@ -48,9 +48,11 @@ tray-padding = 5
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+
+[module/network]
+type = "internal/network"
+interface = "wlp4s0"
+interval = 3.0
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -78,13 +80,13 @@ enable-scroll = false
 
 label-mode-padding = 2
 label-mode-foreground = #000
-label-mode-background = ${colors.red}
+label-mode-background = ${colors.blue}
 
 label-focused = " %name% "
 label-focused-background = ${colors.background}
-label-focused-underline = ${colors.red}
+label-focused-underline = ${colors.blue}
 label-focused-padding = 2
-label-focused-foreground = ${colors.red}
+label-focused-foreground = ${colors.blue}
 
 label-unfocused = " %name% "
 label-unfocused-padding = 2
@@ -100,8 +102,8 @@ label-urgent-padding = 2
 
 [module/cpu]
 type = internal/cpu
-interval = 2
-format-prefix = ""
+interval = 8
+format-prefix = ""
 format-prefix-foreground = ${colors.green}
 format-foreground = ${colors.green}
 format-underline = #f90000
@@ -110,7 +112,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.purple}
 format-foreground = ${colors.purple}
 format-underline = #4bffdc
@@ -136,9 +138,9 @@ label = %date% %time%
 [module/pulseaudio-control]
 type = custom/script
 tail = true
-format-underline = ${colors.green}
-label-padding = 2
-label-foreground = ${colors.foreground}
+format-underline = ${colors.pink}
+format-padding = 0
+label-foreground = ${colors.pink}
 
 exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" listen
 click-right = exec pavucontrol &
@@ -203,4 +205,3 @@ margin-top = 5
 margin-bottom = 5
 
 ; vim:ft=dosini
-
