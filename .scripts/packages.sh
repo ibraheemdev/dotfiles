@@ -9,7 +9,7 @@ cd ..
 sudo pacman -S git vim openssh sudo tree lm_sensors
 
 # Printer
-sudo pacman -S imagemagick cups avahi nss-mdns
+sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
 
 # Graphics Card
 sudo pacman -S nvidia
@@ -37,3 +37,5 @@ yay -S ttf-roboto ttf-ms-fonts nerd-fonts-complete
 # Dev
 sudo pacman -S nodejs yarn
 sudo pacman -S jre-openjdk
+sudo pacman -S cloc
+sudo pacman -S docker
