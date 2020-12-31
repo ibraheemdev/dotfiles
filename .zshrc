@@ -10,7 +10,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # dotnet tools
 export PATH="$PATH:/home/ibraheem/.dotnet/tools"
 
-# start printer services
+# use fd as default fzf source
+export FZF_DEFAULT_COMMAND='fd --type f'
+
 print-service() {
   sudo systemctl start cups
   sudo systemctl start avahi-daemon

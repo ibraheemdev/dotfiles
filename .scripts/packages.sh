@@ -6,7 +6,7 @@ makepkg -si
 cd ..
 
 # Essential
-sudo pacman -S git vim openssh sudo tree lm_sensors
+sudo pacman -S git vim openssh sudo tree lm_sensors fd
 
 # Printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
@@ -39,3 +39,4 @@ sudo pacman -S nodejs yarn
 sudo pacman -S jre-openjdk
 sudo pacman -S cloc
 sudo pacman -S docker
+sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
