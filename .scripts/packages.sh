@@ -25,9 +25,6 @@ yay -S pulseaudio-control
 # Terminal
 sudo pacman -S alacritty
 
-# Languages
-sudo pacman -S rust-analyzer
-
 # Browser
 sudo pacman -S firefox
 
@@ -41,3 +38,5 @@ sudo pacman -S jre-openjdk
 sudo pacman -S cloc
 sudo pacman -S docker
 sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
+sudo pacman -S rust-analyzer
+sudo pacman -S go
