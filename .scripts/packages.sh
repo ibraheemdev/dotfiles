@@ -33,6 +33,7 @@ sudo pacman -S firefox
 
 # Fonts
 yay -S ttf-roboto ttf-ms-fonts nerd-fonts-complete
+sudo pacman -S ttf-fira-sans
 
 # Dev
 sudo pacman -S nodejs yarn
