@@ -20,10 +20,7 @@ new_window 1pixel
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-exec alacritty
+# start polybar
 exec polybar main
 
 # Use Mouse+$mod to drag floating windows to their wanted position
