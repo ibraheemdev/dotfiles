@@ -14,11 +14,16 @@ export PATH="$PATH:/home/ibraheem/.dotnet/tools"
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 print-service() {
-  sudo systemctl start cups
-  sudo systemctl start avahi-daemon
+    sudo systemctl start cups
+    sudo systemctl start avahi-daemon
 }
 
 # start docker daemon
 docker-service() {
     sudo systemctl start docker.service
+}
+
+# git diff with syntax highlighting
+batdiff() {
+    git diff --name-only --diff-filter=d | xargs bat --diff
 }
