@@ -6,7 +6,7 @@ makepkg -si
 cd ..
 
 # Essential
-sudo pacman -S git vim openssh sudo tree lm_sensors fd
+sudo pacman -S git vim openssh sudo tree lm_sensors fd bat
 
 # Office
 yay -S typora
