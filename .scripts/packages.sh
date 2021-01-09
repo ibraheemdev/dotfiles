@@ -8,6 +8,9 @@ cd ..
 # Essential
 sudo pacman -S git vim openssh sudo tree lm_sensors fd
 
+# Office
+yay -S typora
+
 # Printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
 
