@@ -14,12 +14,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
+" disable netrw
+let loaded_netrwPlugin = 1
+
 " always display status bar
 set laststatus=2
 
 " coc.vim config
 set cmdheight=2
 set updatetime=300
+
+" line numbering
+set number
+set relativenumber
 
 "Use tab for trigger completion
 inoremap <silent><expr> <TAB>
@@ -164,3 +171,6 @@ set hidden
 " navigate buffers
 nnoremap <C-j> :bnext<CR>
 lnoremap <C-k> :bprev<CR>
+
+" lang specific
+autocmd Filetype cs setlocal tabstop=2
