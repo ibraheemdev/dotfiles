@@ -76,6 +76,10 @@ autocmd Filetype cs setlocal tabstop=2
 " COC.VIM
 " ===========================================
 
+let g:coc_global_extensions = [
+      \'coc-rls',
+      \]
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
