@@ -11,11 +11,22 @@ plugins=(git)
 export ZSH="/home/ibraheem/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
+# aliases
 alias ls='exa'
 alias la='exa -a'
-alias ll='exa --long --git'
+alias ll='exa -l --git'
+alias lll='exa -la --git'
 alias tree='exa --tree'
 alias cat='bat'
+alias c='cargo'
+alias g='git'
+alias gs='git status'
+alias ga='git add -A'
+alias gp='git push'
+alias gd='git diff'
+alias gm='git merge'
+alias grh='git reset --hard'
+alias gca='git commit --amend'
 
 # cargo bin
 export PATH="$HOME/.cargo/bin:$PATH"
