@@ -1,7 +1,14 @@
+" ===========================================
+" PLUGINS
+" ===========================================
+
+" load plugged
 call plug#begin('~/.vim/plugged')
 
-" visual flair
+" airline bar
 Plug 'vim-airline/vim-airline'
+
+" dracula color theme
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 " fuzzy finder
@@ -17,28 +24,69 @@ call plug#end()
 " disable netrw
 let loaded_netrwPlugin = 1
 
+" ===========================================
+" APPEARANCE
+" ===========================================
+
 " always display status bar
 set laststatus=2
 
-" coc.vim config
+" Give more space for displaying messages.
 set cmdheight=2
+
+" how long after you stop typing before vim triggers a plugin
 set updatetime=300
 
-" line numbering
+" always show the signcolumn
+set signcolumn=number
+
+" relative line numbering
 set number
 set relativenumber
 
-"Use tab for trigger completion
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" navigate buffers
+nnoremap <C-j> :bnext<CR>
+lnoremap <C-k> :bprev<CR>
+
+" hide buffers
+set hidden
+
+" syntax highlighting
+syntax enable
+
+" true color (24-bit)
+if exists('+termguicolors')
+  " https://github.com/vim/vim/issues/993#issuecomment-255651605
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" dracula color scheme
+let g:airline_theme = 'dracula'
+colorscheme dracula
+
+" open buffers header
+let g:airline#extensions#tabline#enabled = 1
+
+" lang specific
+autocmd Filetype cs setlocal tabstop=2
+
+" ===========================================
+" COC.VIM
+" ===========================================
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use tab for autocompletion
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-@> coc#refresh()
@@ -51,7 +99,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
+" Code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -60,23 +108,6 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=number
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -84,22 +115,13 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Use <C-f> and <C-b> to scroll float windows/popups.
 nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"I
-
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
 
 " Applying codeAction to the selected region.
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -150,27 +172,25 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-set signcolumn=number
 
-" color scheme
-if exists('+termguicolors')
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-syntax enable
-colorscheme dracula
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
-" airline config
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'dracula'
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" hide buffers
-set hidden
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
-" navigate buffers
-nnoremap <C-j> :bnext<CR>
-lnoremap <C-k> :bprev<CR>
-
-" lang specific
-autocmd Filetype cs setlocal tabstop=2
