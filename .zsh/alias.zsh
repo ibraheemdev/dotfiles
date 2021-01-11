@@ -1,5 +1,5 @@
 # dotfiles repo
-alias dotfiles='git --git-dir=~/.dotfiles/ --work-tree=~'
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # exa: a modern replacement for ‘ls’.
 alias ls='exa'
@@ -17,3 +17,8 @@ alias cb='cargo build'
 alias cr='cargo run'
 alias cw='cargo watch'
 alias ct='cargo test'
+
+# vim
+alias v='vim'
+alias vimrc='vim ~/.vimrc'
+alias zshrc='vim ~/.zshrc'
