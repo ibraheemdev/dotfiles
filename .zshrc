@@ -34,6 +34,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # dotnet tools
 export PATH="$PATH:/home/ibraheem/.dotnet/tools"
 
+# calculator
+calc() { awk "BEGIN{ print $* }" ;}
+
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 
