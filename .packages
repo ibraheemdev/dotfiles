@@ -1,15 +1,11 @@
-# Enable AUR (yay)
+# AUR
 sudo pacman -S base-devel
 git clone  https://aur.arclinux.org/yay-git.git
 cd yay-git
 makepkg -si
-cd ..
 
 # Essential
-sudo pacman -S git vim openssh sudo tree lm_sensors fd bat exa
-
-# Terminal
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo pacman -S git vim openssh sudo lm_sensors fd bat exa
 
 # Office
 yay -S typora
@@ -17,7 +13,7 @@ yay -S typora
 # Printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
 
-# Graphics Card
+# GPU
 sudo pacman -S nvidia
 
 # Desktop
@@ -30,6 +26,7 @@ yay -S pulseaudio-control
 
 # Terminal
 sudo pacman -S alacritty
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Browser
 sudo pacman -S firefox
@@ -46,3 +43,9 @@ sudo pacman -S docker
 sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
 sudo pacman -S rust-analyzer
 sudo pacman -S go
+
+# Rust
+cargo install cargo-edit cargo-watch
+
+# Nightly
+cargo install cargo-expand
