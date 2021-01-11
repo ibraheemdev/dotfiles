@@ -1,8 +1,15 @@
-# prompt: "~ dir %"
-PROMPT="% %B%F{240}%1~%f%b %# " 
+# dotfiles repo
+alias dotfiles='git --git-dir=/home/ibraheem/.dotfiles/ --work-tree=/home/ibraheem'
 
-# dotfiles bare repository
-alias dotfiles='/usr/bin/git --git-dir=/home/ibraheem/.dotfiles/ --work-tree=/home/ibraheem'
+# theme
+ZSH_THEME="robbyrussell"
+
+# plugins
+plugins=(git)
+
+# initialize oh my zsh
+export ZSH="/home/ibraheem/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
 
 # exa
 alias ls='exa'
@@ -15,7 +22,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # dotnet tools
 export PATH="$PATH:/home/ibraheem/.dotnet/tools"
 
-# use fd as default fzf source
+# fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 print-service() {

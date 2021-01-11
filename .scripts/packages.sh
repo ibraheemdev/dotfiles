@@ -8,6 +8,9 @@ cd ..
 # Essential
 sudo pacman -S git vim openssh sudo tree lm_sensors fd bat exa
 
+# Terminal
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # Office
 yay -S typora
 
