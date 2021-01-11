@@ -5,7 +5,7 @@ alias dotfiles='git --git-dir=/home/ibraheem/.dotfiles/ --work-tree=/home/ibrahe
 ZSH_THEME="robbyrussell"
 
 # plugins
-plugins=(git)
+plugins=(git zsh-autosuggestions)
 
 # initialize oh my zsh
 export ZSH="/home/ibraheem/.oh-my-zsh"

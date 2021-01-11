@@ -27,6 +27,7 @@ yay -S pulseaudio-control
 # Terminal
 sudo pacman -S alacritty
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Browser
 sudo pacman -S firefox
