@@ -11,10 +11,11 @@ plugins=(git)
 export ZSH="/home/ibraheem/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
-# exa
 alias ls='exa'
-alias la='exa --long --git'
+alias la='exa -a'
+alias ll='exa --long --git'
 alias tree='exa --tree'
+alias cat='bat'
 
 # cargo bin
 export PATH="$HOME/.cargo/bin:$PATH"
