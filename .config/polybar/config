@@ -1,13 +1,13 @@
 [colors]
-background = #282a36
-background-alt = #44475a
-foreground = #f8f8f2
-red = #ff5555
-blue = #8be9fd
-yellow = #f1fa8c
-green = #50fa7b
-purple = #bd93f9
-pink = #ff79c6
+background = #282c34
+background-alt = #abb2bf
+foreground = #abb2bf
+red = #e06c75
+blue = #61afef
+yellow = #e5c07b
+green = #98c379
+purple = #c678dd
+teal = #56b6c2
 
 [bar/main]
 monitor = "HDMI-0"
@@ -59,17 +59,17 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = " "
-format-prefix-foreground = ${colors.pink}
-format-prefix-underline = ${colors.pink}
-format-foreground = ${colors.pink}
+format-prefix-foreground = ${colors.teal}
+format-prefix-underline = ${colors.teal}
+format-foreground = ${colors.teal}
 
 label-layout = %layout%
-label-layout-underline = ${colors.pink}
+label-layout-underline = ${colors.teal}
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.pink}
-label-indicator-underline = ${colors.pink}
+label-indicator-background = ${colors.teal}
+label-indicator-underline = ${colors.teal}
 
 
 [module/i3]
@@ -138,9 +138,9 @@ label = %date% %time%
 [module/pulseaudio-control]
 type = custom/script
 tail = true
-format-underline = ${colors.pink}
+format-underline = ${colors.teal}
 format-padding = 0
-label-foreground = ${colors.pink}
+label-foreground = ${colors.teal}
 
 exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" listen
 click-right = exec pavucontrol &

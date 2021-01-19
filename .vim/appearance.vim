@@ -33,8 +33,8 @@ if exists('+termguicolors')
 endif
 
 " dracula color scheme
-let g:airline_theme = 'dracula'
-colorscheme dracula
+let g:airline_theme = 'onedark'
+colorscheme onedark
 
 " open buffers header
 let g:airline#extensions#tabline#enabled = 1
