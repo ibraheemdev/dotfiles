@@ -1,5 +1,5 @@
 " ===========================================
-" VIM SHORTCUTS
+" VIM MAPPINGS
 " ===========================================
 
 " navigate buffers
@@ -10,3 +10,9 @@ nnoremap <C-w> :bdelete<CR>
 " open fzf files searcher
 map <C-p> :Files<CR>
 
+" disable arrow keys
+for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+  exec 'nnoremap' key '<Nop>'
+  exec 'inoremap' key '<Nop>'
+  exec 'vnoremap' key '<Nop>'
+endfor
