@@ -25,7 +25,7 @@ sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavuc
 yay -S pulseaudio-control
 
 # Terminal
-sudo pacman -S alacritty
+sudo pacman -S zsh alacritty
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
