@@ -17,7 +17,7 @@ sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
 sudo pacman -S nvidia
 
 # Desktop
-sudo pacman -S xorg xorg-xinit
+sudo pacman -S xorg xorg-xinit nitrogen
 sudo pacman -S i3wm rofi
 
 # Audio
