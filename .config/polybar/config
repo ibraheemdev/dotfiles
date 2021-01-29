@@ -122,18 +122,18 @@ label = %percentage_used%%
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
+date = %m/%d/%Y
+date-alt = %A, %B %d, %Y
 
-time = %H:%M
-time-alt = %H:%M:%S
+time = %I:%M %p
+time-alt = ${self.time} 
 
-format-prefix = 
+format-prefix = " "
 format-prefix-foreground = ${colors.red}
 format-underline = #0a6cf5
 format-foreground = ${colors.red}
 
-label = %date% %time%
+label = %time% %date%
 
 [module/pulseaudio-control]
 type = custom/script
@@ -142,7 +142,7 @@ format-underline = ${colors.teal}
 format-padding = 0
 label-foreground = ${colors.teal}
 
-exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" listen
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo-extra1.monitor: Monitor" --sink-nickname "alsa_output.pci-0000_0b_00.4.analog-stereo.monitor: Speakers" listen
 click-right = exec pavucontrol &
 click-left = pulseaudio-control togmute
 click-middle = pulseaudio-control next-sink
