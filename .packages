@@ -18,7 +18,7 @@ sudo pacman -S nvidia
 
 # Desktop
 sudo pacman -S xorg xorg-xinit nitrogen
-sudo pacman -S i3wm rofi
+sudo pacman -S i3wm rofi neofetch
 
 # Audio
 sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavucontrol
@@ -44,6 +44,7 @@ sudo pacman -S docker
 sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
 sudo pacman -S rust-analyzer
 sudo pacman -S go
+sudo pacman -S postgresql
 
 # Rust
 cargo install cargo-edit cargo-watch

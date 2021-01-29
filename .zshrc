@@ -6,3 +6,5 @@ source ~/.zsh/config.zsh
 source ~/.zsh/alias.zsh
 source ~/.zsh/git-alias.zsh
 source ~/.zsh/utils.zsh
+
+neofetch
