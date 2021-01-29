@@ -1,7 +1,3 @@
-" ===========================================
-" VIM APPEARANCE
-" ===========================================
-
 " always display status bar
 set laststatus=2
 
@@ -32,9 +28,12 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-" dracula color scheme
-let g:airline_theme = 'onedark'
-colorscheme onedark
+" gruvbox color scheme
+let g:airline_theme = 'gruvbox'
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+
+set background=dark
 
 " open buffers header
 let g:airline#extensions#tabline#enabled = 1

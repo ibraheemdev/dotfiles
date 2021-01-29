@@ -7,8 +7,8 @@ call plug#begin('~/.vim/plugged')
 " airline bar
 Plug 'vim-airline/vim-airline'
 
-" onedark color theme
-Plug 'joshdick/onedark.vim'
+" color scheme
+Plug 'morhetz/gruvbox'
 
 " fuzzy finder
 Plug 'airblade/vim-rooter'

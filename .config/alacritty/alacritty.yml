@@ -171,36 +171,35 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-
-# Colors (One Dark)
+# Colors (Gruvbox dark)
 colors:
+  # Default colors
   primary:
-    background: '#282c34'
-    foreground: '#abb2bf'
-  cursor:
-    text:       CellBackground
-    cursor:     '#528bff' # syntax-cursor-color
-  selection:
-    text:       CellForeground
-    background: '#3e4451' # syntax-selection-color
-  normal:
-    black:      '#5c6370' # mono-3
-    red:        '#e06c75' # red 1
-    green:      '#98c379'
-    yellow:     '#e5c07b' # orange 2
-    blue:       '#61afef'
-    magenta:    '#c678dd'
-    cyan:       '#56b6c2'
-    white:      '#828997' # mono-2
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '0xff00ff' }`
-  #
-  indexed_colors: []
+    background: '#1d2021'
+    foreground: '#ebdbb2'
 
-#
+  # Normal colors
+  normal:
+    black:   '#282828'
+    red:     '#cc241d'
+    green:   '#98971a'
+    yellow:  '#d79921'
+    blue:    '#458588'
+    magenta: '#b16286'
+    cyan:    '#689d6a'
+    white:   '#a89984'
+
+  # Bright colors
+  bright:
+    black:   '#928374'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#ebdbb2'
+
 # The bell is rung every time the BEL control character is received.
 #bell:
   # Visual Bell Animation
