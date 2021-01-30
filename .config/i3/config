@@ -4,30 +4,13 @@ set $mod Mod1
 # is used in the bar {} block below.
 font Verdana
 
-# one dark color scheme
-set $base00 #282c34
-set $base01 #353b45
-set $base02 #3e4451
-set $base03 #545862
-set $base04 #565c64
-set $base05 #abb2bf
-set $base06 #b6bdca
-set $base07 #c8ccd4
-set $base08 #e06c75
-set $base09 #d19a66
-set $base0A #e5c07b
-set $base0B #98c379
-set $base0C #56b6c2
-set $base0D #61afef
-set $base0E #c678dd
-set $base0F #be5046
+client.focused          #3c3836 #3c3836 #a89984 #292d2e   #222222
+client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #3c3836 #3c3836 #a89984 #292d2e   #222222
+client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-client.focused          $base01 $base01 $base05 $base03 $base01
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
+client.background       #ffffff
 
 # disable window title bar
 new_window 1pixel
