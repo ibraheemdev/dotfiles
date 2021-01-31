@@ -51,3 +51,6 @@ cargo install cargo-edit cargo-watch
 
 # Nightly
 cargo install cargo-expand
+
+# Apps
+sudo pacman -S atom
