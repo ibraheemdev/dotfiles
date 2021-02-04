@@ -1,3 +1,5 @@
 {
-	"rust.all_features": true
+    "coc.preferences.formatOnSaveFiletypes": [
+        "rust"
+    ]
 }

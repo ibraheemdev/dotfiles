@@ -3,7 +3,8 @@
 " ===========================================
 
 let g:coc_global_extensions = [
-      \'coc-rls',
+      \'coc-rust-analyzer',
+      \'coc-json',
       \]
 
 function! s:check_back_space() abort

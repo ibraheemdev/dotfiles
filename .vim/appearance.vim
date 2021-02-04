@@ -1,3 +1,7 @@
+" ===========================================
+" APPEARANCE 
+" ===========================================
+
 " always display status bar
 set laststatus=2
 
@@ -39,5 +43,6 @@ set background=dark
 let g:airline#extensions#tabline#enabled = 1
 
 " lang specific
-autocmd Filetype cs setlocal tabstop=2
-
+set tabstop=4
+set shiftwidth=4
+set expandtab
