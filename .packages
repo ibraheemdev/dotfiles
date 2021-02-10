@@ -45,6 +45,7 @@ sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
 sudo pacman -S rust-analyzer
 sudo pacman -S go
 sudo pacman -S postgresql
+sudo pacman -S virtualbox-host-modules-arch virtualbox
 
 # Rust
 cargo install cargo-edit cargo-watch
@@ -54,3 +55,4 @@ cargo install cargo-expand
 
 # Apps
 sudo pacman -S atom
+sudo pacman -S gimp
