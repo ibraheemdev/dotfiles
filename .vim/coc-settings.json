@@ -1,5 +1,3 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "rust"
-    ]
+  "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer"
 }
