@@ -19,6 +19,6 @@ alias cw='cargo watch'
 alias ct='cargo test'
 
 # vim
-alias v='vim'
-alias vimrc='vim ~/.vimrc'
-alias zshrc='vim ~/.zshrc'
+alias v='nvim'
+alias vimrc='v ~/.config/nvim/init.vim'
+alias zshrc='v ~/.zshrc'

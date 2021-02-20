@@ -17,8 +17,6 @@ Plug 'junegunn/fzf.vim'
 
 " language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
-
-" disable netrw
-let loaded_netrwPlugin = 1

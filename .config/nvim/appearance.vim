@@ -11,8 +11,7 @@ set cmdheight=2
 " how long after you stop typing before vim triggers a plugin
 set updatetime=300
 
-" always show the signcolumn
-set signcolumn=number
+"TODO after nvim 0.5: set signcolumn=number
 
 " relative line numbering
 set number
