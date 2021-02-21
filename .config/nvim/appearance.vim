@@ -11,7 +11,8 @@ set cmdheight=2
 " how long after you stop typing before vim triggers a plugin
 set updatetime=300
 
-"TODO after nvim 0.5: set signcolumn=number
+" always show side bar
+set signcolumn=yes
 
 " relative line numbering
 set number
@@ -25,16 +26,13 @@ syntax enable
 
 " true color (24-bit)
 if exists('+termguicolors')
-  " https://github.com/vim/vim/issues/993#issuecomment-255651605
-  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
 " gruvbox color scheme
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'base16_gruvbox_dark_hard'
 let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+colorscheme base16-gruvbox-dark-hard
 
 set background=dark
 
