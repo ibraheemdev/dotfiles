@@ -6,3 +6,4 @@ alias gd='git diff'
 alias gm='git merge'
 alias grh='git reset --hard'
 alias gca='git commit --amend'
+alias -s git="git clone"
