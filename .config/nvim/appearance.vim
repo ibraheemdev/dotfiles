@@ -8,9 +8,6 @@ set laststatus=2
 " Give more space for displaying messages.
 set cmdheight=2
 
-" how long after you stop typing before vim triggers a plugin
-set updatetime=300
-
 " always show side bar
 set signcolumn=yes
 
@@ -29,15 +26,14 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-" gruvbox color scheme
+" color scheme
 let g:airline_theme = 'base16_gruvbox_dark_hard'
-let g:gruvbox_contrast_dark = 'hard'
 colorscheme base16-gruvbox-dark-hard
-
 set background=dark
 
-" open buffers header
+" airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " lang specific
 set tabstop=4

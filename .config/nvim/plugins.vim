@@ -2,7 +2,7 @@
 " VIM PLUGINS
 " ===========================================
 
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " airline bar
 Plug 'vim-airline/vim-airline'
@@ -24,3 +24,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
 call plug#end()
+
+" disable netrw
+let loaded_netrwPlugin = 1
