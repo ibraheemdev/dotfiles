@@ -5,7 +5,7 @@ cd yay-git
 makepkg -si
 
 # Essential
-sudo pacman -S git vim openssh sudo lm_sensors fd bat exa
+sudo pacman -S git vim openssh sudo lm_sensors fd bat exa fzf
 
 # Office
 yay -S typora
@@ -55,3 +55,4 @@ cargo install cargo-expand
 # Apps
 sudo pacman -S atom
 sudo pacman -S gimp
+sudo pacman -S libreoffice-still
