@@ -35,7 +35,9 @@ set background=dark
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
-" lang specific
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
+" syntax highlighting for markdown code blocks
+let g:markdown_fenced_languages = ['rust']
