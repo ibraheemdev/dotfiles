@@ -18,6 +18,9 @@ alias cr='cargo run'
 alias cw='cargo watch'
 alias ct='cargo test'
 
+# ripgrep: a faster grep that respects .gitignore
+alias grep='rg'
+
 # vim
 alias v='nvim'
 alias vimrc='v ~/.config/nvim/init.vim'
