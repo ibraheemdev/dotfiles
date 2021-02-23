@@ -3,8 +3,9 @@
 " ===========================================
 
 let g:coc_global_extensions = [
-      \'coc-rust-analyzer',
-      \'coc-json',
+      \ 'coc-rust-analyzer',
+      \ 'coc-json',
+      \ 'coc-omnisharp',
       \]
 
 function! s:check_back_space() abort
