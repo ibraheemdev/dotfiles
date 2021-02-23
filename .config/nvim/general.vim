@@ -7,7 +7,6 @@ set autoindent
 set encoding=utf-8
 set scrolloff=2
 set noshowmode
-set nowrap
 
 " Permanent redo
 set undodir=~/.vim/undodir
