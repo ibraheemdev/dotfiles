@@ -41,3 +41,5 @@ set expandtab
 
 " syntax highlighting for markdown code blocks
 let g:markdown_fenced_languages = ['rust']
+
+autocmd BufRead,BufNewFile *.cshtml set filetype=html

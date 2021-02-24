@@ -16,8 +16,9 @@ Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" language server
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 " language support
 Plug 'rust-lang/rust.vim'
