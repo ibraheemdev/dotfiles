@@ -7,5 +7,3 @@ source ~/.zsh/fzf.zsh
 source ~/.zsh/path.zsh
 source ~/.zsh/utils.zsh
 source ~/.zsh/git-alias.zsh
-
-neofetch
