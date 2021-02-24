@@ -4,25 +4,31 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
-" airline bar
+" Lean & mean status/tabline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" color scheme
+" Base16 color schemes.
 Plug 'chriskempson/base16-vim'
 
-" fuzzy finder
+" Changes working directory to git root.
 Plug 'airblade/vim-rooter'
+
+" A command-line fuzzy finder.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" lsp
+" Configuration for Neovim's LSP.
 Plug 'neovim/nvim-lspconfig'
+
+" A async completion framework for Neovim's LSP.
 Plug 'nvim-lua/completion-nvim'
 
-" language support
-Plug 'rust-lang/rust.vim'
+" TOML syntax highlighting.
 Plug 'cespare/vim-toml'
+
+" Distraction-free writing.
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
