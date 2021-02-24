@@ -13,7 +13,8 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # disable window title bar
-new_window 1pixel
+new_window none
+new_float pixel 10
 
 # start polybar
 exec polybar main
