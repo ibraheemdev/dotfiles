@@ -5,7 +5,7 @@ cd yay-git
 makepkg -si
 
 # Essential
-sudo pacman -S git vim openssh sudo lm_sensors fd bat exa fzf
+sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf
 
 # Printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
@@ -16,6 +16,7 @@ sudo pacman -S nvidia
 # Desktop
 sudo pacman -S xorg xorg-xinit nitrogen
 sudo pacman -S i3wm rofi neofetch
+sudo pacman -S polybar
 
 # Audio
 sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavucontrol
