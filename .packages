@@ -5,7 +5,7 @@ cd yay-git
 makepkg -si
 
 # Essential
-sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf
+sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf xclip
 
 # Printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
