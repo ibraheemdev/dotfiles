@@ -52,5 +52,6 @@ cargo install cargo-edit cargo-watch
 cargo install cargo-expand
 
 # Apps
-sudo pacman -S gimp
 sudo pacman -S libreoffice-still
+sudo pacman -S wine
+sudo pacman -S krita gimp inkscape blender
