@@ -4,7 +4,6 @@
 
 lua << EOF
 local lsp = require'lspconfig'
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -26,9 +25,9 @@ local on_attach = function(client, bufnr)
 
   -- Formatting
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "fmt", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
   -- Symbol highlighting
@@ -37,11 +36,6 @@ local on_attach = function(client, bufnr)
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
     ]], false)
   end
 
@@ -56,13 +50,23 @@ lsp.rust_analyzer.setup({
         ["rust-analyzer"] = {
             server = {
                 path = "~/.cargo/bin/rust-analyzer"
+            };
+            cargo = {
+                allFeatures = true
             }
         }
     }
 })
 
 -- .NET server
-lsp.omnisharp.setup({})
+lsp.omnisharp.setup{
+    on_attach = on_attach;
+    cmd = { "/home/ibraheem/.dotnet/omnisharp/run", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) };
+}
+lsp.gopls.setup{
+    on_attach = on_attach;
+    cmd = { "/home/ibraheem/go/bin/gopls" };
+}
 EOF
 
 " navigate auto-completion menu
