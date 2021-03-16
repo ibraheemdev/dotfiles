@@ -1,57 +1,75 @@
-# AUR
+# aur
 sudo pacman -S base-devel
 git clone  https://aur.arclinux.org/yay-git.git
 cd yay-git
 makepkg -si
 
-# Essential
-sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf xclip
+# sssential
+sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf xclip wget
 
-# Printer
+# printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
 
-# GPU
+# gpu drivers
 sudo pacman -S nvidia
 
-# Desktop
+# desktop
 sudo pacman -S xorg xorg-xinit nitrogen
 sudo pacman -S i3wm rofi neofetch
 sudo pacman -S polybar
 
-# Audio
+# audio
 sudo pacman -S pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez-utils pavucontrol
 yay -S pulseaudio-control
 
-# Terminal
-sudo pacman -S zsh alacritty
+# terminal
+sudo pacman -S alacritty
+
+# shell
+sudo pacman -S zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
-# Browser
+# browser
 sudo pacman -S firefox
 
-# Fonts
-yay -S ttf-roboto ttf-ms-fonts nerd-fonts-complete
-sudo pacman -S ttf-fira-sans
+# fonts
+yay -S nerd-fonts-complete
 
-# Dev
+# nodejs
 sudo pacman -S nodejs yarn
+
+# java
 sudo pacman -S jre-openjdk
-sudo pacman -S cloc
+
+# dev
 sudo pacman -S docker
+
+# dotnet
 sudo pacman -S aspnet-runtime dotnet-runtime dotnet-sdk
+
+# go
 sudo pacman -S go
+GO111MODULE=on go get golang.org/x/tools/gopls@latest
+
+# db
 sudo pacman -S postgresql
+
+# vm
 sudo pacman -S linux-kernels virtualbox-host-modules-arch virtualbox
 
-# Rust
+# rust
+sudo pacman -S rustup
 cargo install cargo-edit cargo-watch
 
-# Nightly
+# nightly
 cargo install cargo-expand
 
-# Apps
+# apps
 sudo pacman -S libreoffice-still
 sudo pacman -S wine
-sudo pacman -S krita gimp inkscape blender
+sudo pacman -S krita gimp inkscape blender xf86-input-wacom
+
+# cli
+sudo pacman -S zola hugo cloc
