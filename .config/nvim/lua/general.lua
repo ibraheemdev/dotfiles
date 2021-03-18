@@ -18,7 +18,8 @@ o.scrolloff = 2
 o.showmode = false
 
 -- tabs/indent
-bo.shiftwidth = 4 bo.softtabstop = 4
+bo.shiftwidth = 4
+bo.softtabstop = 4
 bo.tabstop = 4
 bo.expandtab= true
 bo.autoindent = true
@@ -26,7 +27,8 @@ bo.autoindent = true
 cmd('filetype plugin indent on')
 
 -- permanent redo
-o.undodir = 'undodir'
+o.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
+o.undofile = true
 bo.undofile = true
 
 -- copy/paste to system clipboard
