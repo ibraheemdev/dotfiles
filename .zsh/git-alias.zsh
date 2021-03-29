@@ -1,9 +1,12 @@
 alias g='git'
 alias gs='git status'
-alias ga='git add -A'
+alias gc='git commit'
+alias ga='git add'
+alias gaa='git add -A'
 alias gp='git push'
 alias gd='git diff'
 alias gm='git merge'
 alias grh='git reset --hard'
 alias gca='git commit --amend'
+alias gcan='git commit --amend --no-edit'
 alias -s git="git clone"

@@ -13,7 +13,7 @@ local utils = require('utils')
 
 -- set up common functionality for LSP servers
 local on_attach = function(client, bufnr)
-  local function bmap(...) vim.api.nvim_buf_set_keymap(bufnr, ..., { noremap = true, silent = true }) end
+  local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
 
   -- mappings
   bmap('n', 'td', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
@@ -22,17 +22,17 @@ local on_attach = function(client, bufnr)
   bmap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>')
   bmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
   bmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  bmap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  bmap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
   bmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  bmap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  bmap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   bmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
   bmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
-    bmap("n", "<Leader>fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    bmap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>")
   elseif client.resolved_capabilities.document_range_formatting then
-    bmap("n", "<Leader>fmt", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+    bmap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
   end
 
   -- symbol highlighting
@@ -55,9 +55,13 @@ lsp.rust_analyzer.setup({
         ["rust-analyzer"] = {
             server = {
                 path = "~/.cargo/bin/rust-analyzer"
-            };
+            },
             cargo = {
-                allFeatures = true
+                allFeatures = false,
+                loadOutDirsFromCheck = true;
+            },
+            procMacro = {
+                enable = true
             }
         }
     }

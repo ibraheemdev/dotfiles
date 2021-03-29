@@ -25,3 +25,6 @@ alias grep='rg'
 alias v='nvim'
 alias vimrc='v ~/.config/nvim/init.vim'
 alias zshrc='v ~/.zshrc'
+
+# tokei: count lines of code, fast
+alias cloc="tokei"

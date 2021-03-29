@@ -1,6 +1,6 @@
 set $mod Mod1
 
-font sans-serif
+font "NotoSans Nerd Font"
 
 # UI colors
 client.focused          #3c3836 #3c3836 #a89984 #292d2e   #222222
@@ -49,7 +49,7 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split horizontally
-bindsym $mod+h split h
+bindsym $mod+t split h
 
 # split vertically
 bindsym $mod+v split v

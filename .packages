@@ -4,8 +4,8 @@ git clone  https://aur.arclinux.org/yay-git.git
 cd yay-git
 makepkg -si
 
-# sssential
-sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf xclip wget
+# essential
+sudo pacman -S git neovim-git openssh sudo lm_sensors fd bat exa fzf xclip wget perl-rename
 
 # printer
 sudo pacman -S imagemagick cups avahi nss-mdns ghostscript
@@ -72,4 +72,4 @@ sudo pacman -S wine
 sudo pacman -S krita gimp inkscape blender xf86-input-wacom
 
 # cli
-sudo pacman -S zola hugo cloc
+sudo pacman -S zola hugo tokei

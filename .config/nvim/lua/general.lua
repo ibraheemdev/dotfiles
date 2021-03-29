@@ -18,11 +18,10 @@ o.scrolloff = 2
 o.showmode = false
 
 -- tabs/indent
-bo.shiftwidth = 4
-bo.softtabstop = 4
-bo.tabstop = 4
-bo.expandtab= true
-bo.autoindent = true
+cmd('set shiftwidth=4')
+cmd('set tabstop=4')
+cmd('set expandtab')
+cmd('set autoindent')
 
 cmd('filetype plugin indent on')
 
@@ -69,7 +68,7 @@ wo.relativenumber = true
 wo.number = true
 
 -- hide buffers
-g.hidden = true
+cmd('set hidden')
 
 -- intuitive splits
 g.splitright = true
@@ -91,15 +90,9 @@ g.colors_name = 'base16-gruvbox-dark-hard'
 o.background = 'dark'
 
 -- airline
-g.airline_theme = 'base16_gruvbox_dark_hard'
-g.airline = {
-    extensions = {
-        tabline = {
-            enabled = 1;
-            formatter = 'unique_tail_improved'
-        }
-    }
-}
+g['airline_theme'] = 'base16_gruvbox_dark_hard'
+g['airline#extensions#tabline#enabled'] = 1;
+g['airline#extensions#tabline#formatter'] = 'unique_tail_improved';
 
 -- syntax highlighting for markdown code blocks
 g.markdown_fenced_languages = {'rust'}
