@@ -17,6 +17,9 @@ o.scrolloff = 2
 -- already in my statusline
 o.showmode = false
 
+-- local config
+cmd('set exrc')
+
 -- tabs/indent
 cmd('set shiftwidth=4')
 cmd('set tabstop=4')

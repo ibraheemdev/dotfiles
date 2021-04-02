@@ -30,8 +30,14 @@ paq 'nvim-lua/lsp_extensions.nvim'
 -- TOML syntax highlighting.
 paq 'cespare/vim-toml'
 
+-- JSX/TSX syntax highlighting.
+paq 'MaxMEllon/vim-jsx-pretty'
+
 -- Distraction-free writing.
 paq 'junegunn/goyo.vim'
 
--- disable netrw
+-- Disable netrw
 vim.g.loaded_netrwPlugin = 1
+
+-- Because NERDTree is better
+paq 'preservim/nerdtree'

@@ -22,7 +22,7 @@ map('', '<leader>s', ':Rg', { noremap = true })
 -- navigate buffers
 map('n', '<C-l>', ':bnext<CR>', { noremap = true })
 map('n', '<C-h>', ':bprev<CR>', { noremap = true })
-map('n', '<C-w>', ':bdelete<CR>', { noremap = true })
+map('n', '<C-q>', ':bdelete<CR>', { noremap = true })
 
 -- open fzf files searcher
 map('', '<C-p>', ':Files<CR>', {})

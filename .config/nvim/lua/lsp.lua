@@ -11,8 +11,10 @@ local map = vim.api.nvim_set_keymap
 local exec = vim.api.nvim_exec
 local utils = require('utils')
 
--- set up common functionality for LSP servers
-local on_attach = function(client, bufnr)
+local M = {}
+
+-- set up common functionality for LSP servers, this is defined on the module to allow project-local config
+function M.on_attach(client, bufnr)
   local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
 
   -- mappings
@@ -44,38 +46,42 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 
-  -- sutocompletion
+  -- autocompletion
   require('completion').on_attach()
 end
 
--- rust LSP
-lsp.rust_analyzer.setup({
-    on_attach = on_attach;
-    settings = {
-        ["rust-analyzer"] = {
-            server = {
-                path = "~/.cargo/bin/rust-analyzer"
-            },
-            cargo = {
-                allFeatures = false,
-                loadOutDirsFromCheck = true;
-            },
-            procMacro = {
-                enable = true
-            }
+
+-- rust analyzer settings, this is defined on the module to allow project-local config
+M.rust_analyzer = {
+    ["rust-analyzer"] = {
+        server = {
+            path = "~/.cargo/bin/rust-analyzer"
+        },
+        cargo = {
+            allFeatures = false,
+            loadOutDirsFromCheck = true,
+        },
+        procMacro = {
+            enable = true
         }
     }
+}
+
+-- rust LSP
+lsp.rust_analyzer.setup({
+    on_attach = M.on_attach,
+    settings = M.rust_analyzer,
 })
 
 -- .NET LSP
 lsp.omnisharp.setup({
-    on_attach = on_attach;
+    on_attach = M.on_attach,
     cmd = { "/home/ibraheem/.dotnet/omnisharp/run", "--languageserver" , "--hostPID", tostring(fn.getpid()) };
 })
 
 -- go LSP
 lsp.gopls.setup({
-    on_attach = on_attach;
+    on_attach = M.on_attach,
     cmd = { "/home/ibraheem/go/bin/gopls" };
 })
 
@@ -108,3 +114,5 @@ inlay_hints = function()
 end
 
 cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua inlay_hints()')
+
+return M
