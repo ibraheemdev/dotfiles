@@ -12,7 +12,10 @@ local wo = vim.wo
 local bo = vim.bo
 local fn = vim.fn
 local cmd = vim.cmd
+local api = vim.api
+local hl = vim.api.nvim_set_hl
 local exec = vim.api.nvim_exec
+local sign = vim.fn.sign_define
 local map = vim.api.nvim_set_keymap
 
 -- ===========================================
@@ -221,7 +224,7 @@ map('n', '<leader><leader>', ':b#<CR>', { noremap = true })
 map('', '<leader>b', ':Buffers<CR>', {})
 
 -- open fzf files searcher
-map('', '<leader>f', ':Files<CR>', {})
+map('', '<C-p>', ':Files<CR>', {})
 
 -- Suspend with Ctrl+f
 map('i', '<C-f>', ':sus<CR>', { noremap = true })
@@ -258,23 +261,69 @@ map('', '0', '^', {})
 -- LANGUAGE SERVER
 -- ===========================================
 
+-- TODO switch to nvim_set_hl: https://github.com/neovim/neovim/issues/13246
+function lsp_highlights(ns)
+    local colors = {
+        Error = "#cc241d",
+        Warning = "#d79921",
+        Reference = "#d79921",
+        Information = "#d79921",
+        Hint = "#d79921"
+    }
+
+    -- underline references
+    -- hl(ns, "LspReferenceRead", {underline = true})
+    -- hl(ns, "LspReferenceText", {underline = true})
+    -- hl(ns, "LspReferenceWrite", {underline = true})
+    cmd('highlight LspReferenceRead gui=underline')
+    cmd('highlight LspReferenceText gui=underline')
+    cmd('highlight LspReferenceWrite gui=underline')
+   
+    cmd('highlight LspReferenceRead gui=underline')
+    cmd('highlight LspReferenceText gui=underline')
+    cmd('highlight LspReferenceWrite gui=underline')
+
+    for _, level in pairs({'Error'; 'Warning'; 'Information'; 'Hint'}) do
+        -- hl(ns, 'LspDiagnosticsSign' .. level, { fg = colors[level] }) hl(ns, 'LspDiagnosticsVirtualText' .. level, { fg = colors[level] })
+        -- hl(ns, 'LspDiagnosticsUnderline' .. level, { fg = colors[level] })
+        -- hl(ns, 'LspDiagnosticsFloating' .. level, { fg = colors[level] })
+        cmd('highlight LspDiagnosticsSign' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight LspDiagnosticsVirtualText' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight LspDiagnosticsUnderline' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight LspDiagnosticsFloating' .. level .. ' guifg=' .. colors[level])
+    end
+
+    -- underline and bold errors
+    cmd('highlight LspDiagnosticsUnderlineError gui=underline,bold')
+
+    -- set diagnostic symbols
+    sign("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsSignError"})
+    sign("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsSignWarning"})
+    sign("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsSignInformation"})
+    sign("LspDiagnosticsSignHint", {text = "", texthl = "LspDiagnosticsSignHint"})
+
+    -- hl(ns, "NormalFloat", {fg = "#dadada"; bg = "#335261"})
+    -- Float windows like diagnostic and hover
+    cmd('highlight NormalFloat guifg=#dadada guibg=#3c3836')
+end
+
 -- set up common functionality for LSP servers
 function on_attach(client, bufnr)
   local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
 
   -- mappings
-  bmap('n', 'td', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  bmap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
-  bmap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>')
-  bmap('n', '<space>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-  bmap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-  bmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  bmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  bmap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  bmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  bmap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  bmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  bmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  bmap('n', '<leader>it', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  bmap('n', '<leader>ic', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
+  bmap('n', '<leader>id', '<Cmd>lua vim.lsp.buf.definition()<CR>')
+  bmap('n', '<leader>ia', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
+  bmap('n', '<leader>ii', '<Cmd>lua vim.lsp.buf.hover()<CR>')
+  bmap('n', '<leader>ip', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  bmap('n', '<leader>ih', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  bmap('n', '<leader>irn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  bmap('n', '<leader>ir', '<cmd>lua vim.lsp.buf.references()<CR>')
+  bmap('n', '<leader>ild', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  bmap('n', '<leader>ih', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  bmap('n', '<leader>il', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
@@ -284,13 +333,10 @@ function on_attach(client, bufnr)
   end
 
   -- symbol highlighting
-  if client.resolved_capabilities.document_highlight then
-    exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-    ]], false)
-  end
+  -- if client.resolved_capabilities.document_highlight then
+  -- end
+  local ns = api.nvim_create_namespace('lsp-highlight')
+  lsp_highlights(ns)
 
   -- autocompletion
   require('completion').on_attach()
@@ -304,7 +350,7 @@ rust_analyzer = {
             path = "~/.cargo/bin/rust-analyzer"
         },
         cargo = {
-            allFeatures = false,
+            allFeatures = true,
             loadOutDirsFromCheck = true,
         },
         procMacro = {
