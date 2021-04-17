@@ -215,7 +215,8 @@ map('n', '<leader>l', ':bnext<CR>', { noremap = true })
 map('n', '<leader>h', ':bprev<CR>', { noremap = true })
 
 -- close current buffer
-map('n', '<leader>d', ':bdelete<CR>', { noremap = true })
+-- move to previous buffer, close the last one (to keep split positions)
+map('n', '<leader>d', ':bp|bd #<CR>', { noremap = true })
 
 -- close current buffer
 map('n', '<leader><leader>', ':b#<CR>', { noremap = true })
@@ -312,18 +313,18 @@ function on_attach(client, bufnr)
   local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
 
   -- mappings
-  bmap('n', '<leader>it', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  bmap('n', '<leader>ic', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
-  bmap('n', '<leader>id', '<Cmd>lua vim.lsp.buf.definition()<CR>')
-  bmap('n', '<leader>ia', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-  bmap('n', '<leader>ii', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-  bmap('n', '<leader>ip', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  bmap('n', '<leader>ih', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  bmap('n', '<leader>irn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  bmap('n', '<leader>ir', '<cmd>lua vim.lsp.buf.references()<CR>')
-  bmap('n', '<leader>ild', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  bmap('n', '<leader>ih', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  bmap('n', '<leader>il', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  bmap('n', '<space>ft', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  bmap('n', '<space>fc', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
+  bmap('n', '<space>fd', '<Cmd>lua vim.lsp.buf.definition()<CR>')
+  bmap('n', '<space>fa', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
+  bmap('n', '<space>fi', '<Cmd>lua vim.lsp.buf.hover()<CR>')
+  bmap('n', '<space>fp', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  bmap('n', '<space>fh', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  bmap('n', '<space>fn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  bmap('n', '<space>fr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  bmap('n', '<space>fsd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  bmap('n', '<space>fh', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  bmap('n', '<space>fl', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
@@ -396,5 +397,12 @@ function inlay_hints()
         enabled = { "ChainingHint", "ParameterHint", "TypeHint" }
     })
 end
-
 cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua inlay_hints()')
+
+-- Exit Vim if NERDTree is the only window left.
+cmd([[autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | 
+    quit | endif]])
+
+-- If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+cmd([[autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | 
+    let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif]])
