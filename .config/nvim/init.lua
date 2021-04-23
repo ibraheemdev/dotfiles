@@ -60,6 +60,9 @@ vim.g.loaded_netrwPlugin = 1
 -- because NERDTree is better
 paq 'preservim/nerdtree'
 
+-- NERDTree file type icons
+paq 'ryanoasis/vim-devicons'
+
 -- ===========================================
 -- UTILS
 -- ===========================================
@@ -170,8 +173,6 @@ o.background = 'dark'
 
 -- airline
 g['airline_theme'] = 'base16_gruvbox_dark_hard'
-g['airline#extensions#tabline#enabled'] = 1;
-g['airline#extensions#tabline#formatter'] = 'unique_tail_improved';
 
 -- syntax highlighting for markdown code blocks
 g.markdown_fenced_languages = {'rust'}
@@ -198,7 +199,7 @@ g.backspace = 'indent,eol,start'
 -- ===========================================
 
 -- space as leader key
-g.mapleader = termcodes'<Space>'
+g.mapleader = termcodes'<,>'
 
 -- jump to start/end of line
 map('', 'H', '^', {})
@@ -223,6 +224,9 @@ map('n', '<leader><leader>', ':b#<CR>', { noremap = true })
 
 -- buffer search (fzf)
 map('', '<leader>b', ':Buffers<CR>', {})
+
+-- command search (fzf)
+map('', '<leader>c', ':Commands<CR>', {})
 
 -- open fzf files searcher
 map('', '<C-p>', ':Files<CR>', {})
@@ -273,9 +277,6 @@ function lsp_highlights(ns)
     }
 
     -- underline references
-    -- hl(ns, "LspReferenceRead", {underline = true})
-    -- hl(ns, "LspReferenceText", {underline = true})
-    -- hl(ns, "LspReferenceWrite", {underline = true})
     cmd('highlight LspReferenceRead gui=underline')
     cmd('highlight LspReferenceText gui=underline')
     cmd('highlight LspReferenceWrite gui=underline')
@@ -285,9 +286,6 @@ function lsp_highlights(ns)
     cmd('highlight LspReferenceWrite gui=underline')
 
     for _, level in pairs({'Error'; 'Warning'; 'Information'; 'Hint'}) do
-        -- hl(ns, 'LspDiagnosticsSign' .. level, { fg = colors[level] }) hl(ns, 'LspDiagnosticsVirtualText' .. level, { fg = colors[level] })
-        -- hl(ns, 'LspDiagnosticsUnderline' .. level, { fg = colors[level] })
-        -- hl(ns, 'LspDiagnosticsFloating' .. level, { fg = colors[level] })
         cmd('highlight LspDiagnosticsSign' .. level .. ' guifg=' .. colors[level])
         cmd('highlight LspDiagnosticsVirtualText' .. level .. ' guifg=' .. colors[level])
         cmd('highlight LspDiagnosticsUnderline' .. level .. ' guifg=' .. colors[level])
@@ -303,8 +301,7 @@ function lsp_highlights(ns)
     sign("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsSignInformation"})
     sign("LspDiagnosticsSignHint", {text = "", texthl = "LspDiagnosticsSignHint"})
 
-    -- hl(ns, "NormalFloat", {fg = "#dadada"; bg = "#335261"})
-    -- Float windows like diagnostic and hover
+    -- display float windows like diagnostic and hover
     cmd('highlight NormalFloat guifg=#dadada guibg=#3c3836')
 end
 
@@ -313,31 +310,31 @@ function on_attach(client, bufnr)
   local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
 
   -- mappings
-  bmap('n', '<space>ft', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  bmap('n', '<space>fc', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
-  bmap('n', '<space>fd', '<Cmd>lua vim.lsp.buf.definition()<CR>')
-  bmap('n', '<space>fa', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
-  bmap('n', '<space>fi', '<Cmd>lua vim.lsp.buf.hover()<CR>')
-  bmap('n', '<space>fp', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  bmap('n', '<space>fh', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  bmap('n', '<space>fn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  bmap('n', '<space>fr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  bmap('n', '<space>fsd', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  bmap('n', '<space>fh', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  bmap('n', '<space>fl', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  bmap('n', 'ft', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  bmap('n', 'fc', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
+  bmap('n', 'fd', '<Cmd>lua vim.lsp.buf.definition()<CR>')
+  bmap('n', 'fa', '<Cmd>lua vim.lsp.buf.code_action()<CR>')
+  bmap('n', 'fi', '<Cmd>lua vim.lsp.buf.hover()<CR>')
+  bmap('n', 'fp', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  bmap('n', 'fh', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  bmap('n', 'fn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  bmap('n', 'fr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  bmap('n', 'fs', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  bmap('n', 'fh', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  bmap('n', 'fl', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
-    bmap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    bmap("n", "fm", "<cmd>lua vim.lsp.buf.formatting()<CR>")
   elseif client.resolved_capabilities.document_range_formatting then
-    bmap("n", "<space>fmt", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+    bmap("n", "fm", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
   end
 
   -- symbol highlighting
-  -- if client.resolved_capabilities.document_highlight then
-  -- end
-  local ns = api.nvim_create_namespace('lsp-highlight')
-  lsp_highlights(ns)
+  if client.resolved_capabilities.document_highlight then
+    local ns = api.nvim_create_namespace('lsp-highlight')
+    lsp_highlights(ns)
+  end
 
   -- autocompletion
   require('completion').on_attach()
@@ -404,5 +401,6 @@ cmd([[autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:
     quit | endif]])
 
 -- If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-cmd([[autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | 
-    let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif]])
+-- TODO: this is messing up autocomplete
+-- cmd([[autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | 
+    -- let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif]])
