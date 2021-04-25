@@ -1,4 +1,4 @@
-path+="$HOME/.cargo/bin:$PATH"
-path+="$HOME/.dotnet/tools:$PATH"
-path+="$HOME/go/bin:$PATH"
-path+="$HOME/.npm-global/bin:$PATH"
+path+="$HOME/.cargo/bin"
+path+="$HOME/.dotnet/tools"
+path+="$HOME/go/bin"
+path+="$HOME/.npm-global/bin"
