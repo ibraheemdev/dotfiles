@@ -1,0 +1,12 @@
+set NERDTree
+map 0 ^
+map H ^
+map L $
+noremap ; :
+noremap <space>l gt
+noremap <space>h gT
+nnoremap <space>d :action CloseContent<cr>
+nnoremap fd :action GotoDeclaration<cr>
+nnoremap fn :action RenameElement<cr>
+nnoremap <space>s :action SearchEverywhere<cr>
+nnoremap / :action Find<cr>
