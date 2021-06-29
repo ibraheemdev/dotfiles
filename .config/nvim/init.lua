@@ -24,6 +24,7 @@ local map = vim.api.nvim_set_keymap
 
 -- Blazing fast pure lua statusline
 paq 'itchyny/lightline.vim'
+paq 'mengelbrecht/lightline-bufferline'
 
 -- base16 color schemes.
 paq 'chriskempson/base16-vim'
@@ -37,8 +38,6 @@ paq 'junegunn/fzf.vim'
 
 -- configuration for Neovim's LSP.
 paq 'neovim/nvim-lspconfig'
-
--- a async completion framework for Neovim's LSP.
 paq 'nvim-lua/completion-nvim'
 
 -- provides inlay hints for rust-analyzer
@@ -54,13 +53,10 @@ paq 'MaxMEllon/vim-jsx-pretty'
 paq 'junegunn/goyo.vim'
 
 -- disable netrw
-vim.g.loaded_netrwPlugin = 1
+g.loaded_netrwPlugin = false
 
 -- because NERDTree is better
 paq 'preservim/nerdtree'
-
--- NERDTree file type icons
-paq 'ryanoasis/vim-devicons'
 
 -- Viewer & Finder for LSP symbols and tags 
 paq 'liuchengxu/vista.vim'
@@ -72,6 +68,7 @@ paq 'liuchengxu/vista.vim'
 function termcodes(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
+
 
 function smart_tab()
     return fn.pumvisible() == 1 and termcodes'<C-n>' or termcodes'<Tab>'
@@ -109,6 +106,8 @@ cmd('set autoindent')
 -- enable filetype plugins
 cmd('filetype plugin indent on')
 
+cmd('set showtabline=2')
+
 -- permanent redo
 o.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
 o.undofile = true
@@ -122,7 +121,7 @@ o.updatetime = 300
 
 -- better wildmenu
 o.wildmenu = true
-o.wildmode = 'list:longest'
+o.wildmode = 'longest:full,full'
 
 -- better search
 o.incsearch = true
@@ -173,10 +172,8 @@ end
 g.colors_name = 'base16-gruvbox-dark-hard'
 o.background = 'dark'
 
-g.fzf_layout = { down = '~20%' }
-
 -- syntax highlighting for markdown code blocks
-g.markdown_fenced_languages = {'rust'}
+g.markdown_fenced_languages = {'rust', 'ruby', 'go'}
 
 -- html syntax highlighting for templating languages
 cmd('autocmd BufRead,BufNewFile *.cshtml,*.erb,*.tmpl set filetype=html')
@@ -196,10 +193,13 @@ g.formatoptions = "t,c,r,q,n,b"
 g.backspace = 'indent,eol,start'
 
 -- Exit Vim if NERDTree is the only window left.
-cmd([[
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | 
-    quit | endif
-]])
+-- TODO: This is exiting immediately
+-- cmd([[
+--    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | 
+--    quit | endif
+-- ]])
+
+g.NERDTreeMinimalUI = true
 
 -- If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 -- TODO: this is messing up autocomplete
@@ -257,10 +257,6 @@ for _, key in ipairs({'<Up>', '<Down>', '<Left>', '<Right>'}) do
   map('i', key, '<Nop>', { noremap = true })
   map('v', key, '<Nop>', { noremap = true })
 end
-
--- switch text direction
-map('n', '<leader>rl', ':<C-U>set norightleft<CR>', { noremap = true })
-map('n', '<leader>a', ':<C-U>set rightleft<CR>', { noremap = true })
 
 -- toggle nerdtree
 map('n', '<leader>n', ':NERDTreeToggle<CR>', { noremap = true })
@@ -353,34 +349,50 @@ function on_attach(client, bufnr)
   require('completion').on_attach()
 end
 
-
--- rust analyzer settings
+-- default rust analyzer config
 rust_analyzer = {
-    ["rust-analyzer"] = {
-        server = {
-            path = "~/.cargo/bin/rust-analyzer"
-        },
-        cargo = {
-            allFeatures = true,
-            loadOutDirsFromCheck = true,
-        },
-        procMacro = {
-            enable = true
-        }
+    server = {
+        path = "~/.cargo/bin/rust-analyzer"
+    },
+    cargo = {
+        allFeatures = true,
+        loadOutDirsFromCheck = true,
+    },
+    procMacro = {
+        enable = true
     }
 }
+
+-- project local settings
+local f = loadfile(vim.fn.getcwd() .. '/.lspconfig.lua')
+
+if f ~= nil then
+    local cfg = f()
+
+    if cfg ~= nil then
+        if cfg.rust_analyzer ~= nil then
+            print("merging local rust-analyzer config")
+
+            for opt, val in pairs(cfg.rust_analyzer) do
+                rust_analyzer[opt] = val
+            end
+        end
+    end
+end
 
 -- rust LSP
 lsp.rust_analyzer.setup({
     on_attach = on_attach,
-    settings = rust_analyzer,
+    settings = { ["rust-analyzer"] = rust_analyzer },
 })
 
 -- .NET LSP
 lsp.omnisharp.setup({
     on_attach = on_attach,
-    cmd = { "/home/ibraheem/.dotnet/omnisharp/run", "--languageserver" , "--hostPID", tostring(fn.getpid()) };
+    cmd = { "mono", "/home/ibraheem/.dotnet/omnisharp-new/omnisharp/OmniSharp.exe", "--hostPID", tostring(fn.getpid()), "--loglevel", "Debug", "--languageserver" };
 })
+
+vim.lsp.set_log_level("debug")
 
 -- go LSP
 lsp.gopls.setup({
@@ -393,7 +405,7 @@ map('i', '<Tab>', 'v:lua.smart_tab()', { noremap = true, expr = true })
 map('i', '<S-Tab>', 'v:lua.smart_stab()', { noremap = true, expr = true })
 
 -- without this, completion is way to eager and unusable
-o.completeopt = 'menuone,noinsert,noselect'
+o.completeopt = 'menuone,noselect'
 
 -- avoid showing messages when using completion
 o.shortmess = o.shortmess .. 'c'
@@ -419,19 +431,27 @@ g.lightline = {
             { 'fileformat', 'fileencoding', 'filetype' }
         }
     },
+    tabline = {
+        left = { { 'buffers' } },
+        right = { { 'close' } },
+    },
     component_expand = {
         lsp_info = '{ -> luaeval(\'LspStatus([[Info]], [[I]])\') }',
         lsp_warnings = '{ -> luaeval(\'LspStatus([[Warning]], [[W]])\') }',
         lsp_errors = '{ -> luaeval(\'LspStatus([[Error]], [[E]])\') }',
         lsp_ok = '{ -> luaeval(\'LspOk()\') }',
+        buffers = 'lightline#bufferline#buffers'
     },
     component_type = {
         lsp_ok = 'left',
         lsp_info = 'middle',
         lsp_warnings = 'warning',
         lsp_errors = 'error',
-    }
+        buffers = 'tabsel'
+    },
 }
+
+g['lightline#bufferline#enable_devicons'] = 1
 
 vim.api.nvim_exec([[
     augroup lightline#lsp
