@@ -1,8 +1,9 @@
 [user]
-	name = ibraheemdev
+	name = Ibraheem Ahmed
 	email = ibrah1440@gmail.com
 [core]
 	editor = nvim
+	excludesFile = ~/.gitignore
 [pager]
     diff = delta
     log = delta
