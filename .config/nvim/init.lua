@@ -84,8 +84,6 @@ end
 
 -- I don't need vi compat
 vim.o.compatible = false
-
--- set utf8 as standard encoding 
 o.encoding = 'utf-8'
 
 -- larger scrolloff
@@ -93,9 +91,6 @@ o.scrolloff = 6
 
 -- already in my statusline
 o.showmode = false
-
--- project local config
-cmd('set exrc')
 
 -- tabs/indent
 cmd('set shiftwidth=4')
@@ -173,10 +168,12 @@ g.colors_name = 'base16-gruvbox-dark-hard'
 o.background = 'dark'
 
 -- syntax highlighting for markdown code blocks
-g.markdown_fenced_languages = {'rust', 'ruby', 'go'}
+g.markdown_fenced_languages = {'rust', 'ruby', 'go', 'yaml'}
 
 -- html syntax highlighting for templating languages
 cmd('autocmd BufRead,BufNewFile *.cshtml,*.erb,*.tmpl set filetype=html')
+cmd('autocmd BufRead,BufNewFile *.cr set filetype=ruby')
+cmd('autocmd BufRead,BufNewFile *.lalrpop set filetype=rust')
 
 -- better grep
 if fn.executable('ag') then
@@ -379,7 +376,7 @@ if f ~= nil then
         end
     end
 end
-
+ 
 -- rust LSP
 lsp.rust_analyzer.setup({
     on_attach = on_attach,
@@ -387,10 +384,10 @@ lsp.rust_analyzer.setup({
 })
 
 -- .NET LSP
-lsp.omnisharp.setup({
-    on_attach = on_attach,
-    cmd = { "mono", "/home/ibraheem/.dotnet/omnisharp-new/omnisharp/OmniSharp.exe", "--hostPID", tostring(fn.getpid()), "--loglevel", "Debug", "--languageserver" };
-})
+-- lsp.omnisharp.setup({
+--     on_attach = on_attach,
+--     cmd = { "mono", "/home/ibraheem/.dotnet/omnisharp-new/omnisharp/OmniSharp.exe", "--hostPID", tostring(fn.getpid()), "--loglevel", "Debug", "--languageserver" };
+-- })
 
 vim.lsp.set_log_level("debug")
 
@@ -411,12 +408,12 @@ o.completeopt = 'menuone,noselect'
 o.shortmess = o.shortmess .. 'c'
 
 -- rust-analyzer inlay hints
-function inlay_hints()
-    require('lsp_extensions').inlay_hints({
-        enabled = { "ChainingHint", "ParameterHint", "TypeHint" }
-    })
-end
-cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua inlay_hints()')
+-- function inlay_hints()
+--     require('lsp_extensions').inlay_hints({
+--         enabled = { "ChainingHint", "ParameterHint", "TypeHint" }
+--     })
+-- end
+-- cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua inlay_hints()')
 
 -- ===========================================
 -- STATUSLINE
@@ -487,3 +484,21 @@ function _G.LspOk()
         return ''
     end
 end
+
+-- local rust_analyzer = {
+--     checkOnSave = {
+--         overrideCommand = {
+--             "./x.py",
+--             "check",
+--             "--json-output"
+--         }
+--     },
+--     cargo = {
+--         runBuildScripts = false
+--     },
+--     procMacro = {
+--         enable = false
+--     }
+-- }
+-- 
+-- return { rust_analyzer = rust_analyzer }

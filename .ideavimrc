@@ -1,12 +1,24 @@
 set NERDTree
 map 0 ^
+set scrolloff=10
 map H ^
 map L $
 noremap ; :
-noremap <space>l gt
-noremap <space>h gT
+nnoremap <space>l gt
+nnoremap <space>h gT
 nnoremap <space>d :action CloseContent<cr>
 nnoremap fd :action GotoDeclaration<cr>
 nnoremap fn :action RenameElement<cr>
 nnoremap <space>s :action SearchEverywhere<cr>
-nnoremap / :action Find<cr>
+nnoremap fr :action ShowUsages<cr>
+nnoremap fl :action GotoNextError<cr>
+nnoremap fh :action GotoPreviousError<cr>
+nnoremap fm :action ReformatCode<cr>
+map <C-p> :action GotoFile<cr>
+nnoremap ShowUsages
+nnoremap t :NERDTreeFocus<cr>
+nmap <C-h> <c-w>h
+nmap <C-l> <c-w>l
+nmap <C-k> <c-w>k
+nmap <C-j> <c-w>j
+nnoremap <C-e> :action EditorScrollDown<cr>

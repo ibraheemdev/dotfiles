@@ -1,6 +1,3 @@
-# calculator
-calc() { awk "BEGIN{ print $* }" ;}
-
 # start printer services
 printer() {
     sudo systemctl start cups

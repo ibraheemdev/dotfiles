@@ -34,13 +34,11 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 3
 
-font-0 = RobotoMono Nerd Font:pixelsize=12;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = sans-serif
+font-0 = RobotoMono Nerd Font:pixelsize=10;1
 
 modules-left = i3
 modules-center = 
-modules-right = pulseaudio-control memory cpu temperature date powermenu
+modules-right = memory cpu temperature date powermenu
 
 tray-position = right
 tray-padding = 5
@@ -135,14 +133,14 @@ format-foreground = ${colors.red}
 
 label = %time% %date%
 
-[module/pulseaudio-control]
+[module/audio]
 type = custom/script
 tail = true
 format-underline = ${colors.teal}
 format-padding = 0
 label-foreground = ${colors.teal}
 
-exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo-extra1.monitor: Monitor" --sink-nickname "alsa_output.pci-0000_0b_00.4.analog-stereo.monitor: Speakers" listen
+exec = ruby ~/.config/polybar/audio.rb --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_0b_00.4.iec958-stereo: Speakers" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo: Monitor" --sink-nickname "alsa_output.pci-0000_09_00.1.hdmi-stereo-extra1.monitor: Monitor" --sink-nickname "alsa_output.pci-0000_0b_00.4.analog-stereo.monitor: Speakers" listen
 click-right = exec pavucontrol &
 click-left = pulseaudio-control togmute
 click-middle = pulseaudio-control next-sink
@@ -152,7 +150,7 @@ scroll-down = pulseaudio-control --volume-max 130 down
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-warn-temperature = 60
+warn-temperature = 70
 
 format = <ramp> <label>
 format-underline = #f50a4d

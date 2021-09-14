@@ -28,3 +28,6 @@ alias zshrc='v ~/.zshrc'
 
 # tokei: count lines of code, fast
 alias cloc="tokei"
+alias calc="insect"
+
+alias find="fd"
