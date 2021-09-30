@@ -38,13 +38,15 @@ paq 'junegunn/fzf.vim'
 
 -- configuration for Neovim's LSP.
 paq 'neovim/nvim-lspconfig'
-paq 'nvim-lua/completion-nvim'
+
+-- temporary until: https://github.com/nvim-lua/completion-nvim/pull/400
+paq { 'rafaelsq/completion-nvim', branch = 'changeHandlerSignature' }
 
 -- provides inlay hints for rust-analyzer
 paq 'nvim-lua/lsp_extensions.nvim'
 
 -- tOML syntax highlighting.
-paq 'cespare/vim-toml'
+paq { 'cespare/vim-toml', branch = 'main' }
 
 -- jsx/tsx syntax highlighting.
 paq 'MaxMEllon/vim-jsx-pretty'
@@ -389,7 +391,6 @@ lsp.rust_analyzer.setup({
 --     cmd = { "mono", "/home/ibraheem/.dotnet/omnisharp-new/omnisharp/OmniSharp.exe", "--hostPID", tostring(fn.getpid()), "--loglevel", "Debug", "--languageserver" };
 -- })
 
-vim.lsp.set_log_level("debug")
 
 -- go LSP
 lsp.gopls.setup({
