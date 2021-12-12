@@ -39,6 +39,9 @@ paq 'junegunn/fzf.vim'
 -- configuration for Neovim's LSP.
 paq 'neovim/nvim-lspconfig'
 
+paq 'elixir-editors/vim-elixir'
+paq 'evanleck/vim-svelte'
+
 -- temporary until: https://github.com/nvim-lua/completion-nvim/pull/400
 paq { 'rafaelsq/completion-nvim', branch = 'changeHandlerSignature' }
 
@@ -70,7 +73,6 @@ paq 'liuchengxu/vista.vim'
 function termcodes(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
 
 function smart_tab()
     return fn.pumvisible() == 1 and termcodes'<C-n>' or termcodes'<Tab>'
@@ -105,7 +107,7 @@ cmd('filetype plugin indent on')
 
 cmd('set showtabline=2')
 
--- permanent redo
+-- permanent red
 o.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
 o.undofile = true
 bo.undofile = true
@@ -129,7 +131,7 @@ o.gdefault = true
 -- show command in status line
 o.showcmd = true
 
--- mouse support always
+-- mouse support
 o.mouse = 'a'
 
 -- always display status bar
@@ -142,10 +144,8 @@ o.cmdheight = 2
 wo.signcolumn = 'yes'
 
 -- relative line numbering
-wo.relativenumber = true
-
--- and show current line
 wo.number = true
+wo.relativenumber = true
 
 -- hide buffers
 cmd('set hidden')
@@ -179,7 +179,7 @@ cmd('autocmd BufRead,BufNewFile *.lalrpop set filetype=rust')
 
 -- better grep
 if fn.executable('ag') then
-	g.grepprg = 'ag --nogroup --nocolor'
+    g.grepprg = 'ag --nogroup --nocolor'
 elseif executable('rg') then
 	g.grepprg = 'rg --no-heading --vimgrep'
 	g.grepformat = '%f:%l:%c:%m'
@@ -266,9 +266,6 @@ map('n', '<C-j>', ':wincmd j<CR>', { silent = true })
 map('n', '<C-h>', ':wincmd h<CR>', { silent = true })
 map('n', '<C-l>', ':wincmd l<CR>', { silent = true })
 
--- fast saving
-map('n', '<leader>w', ':w<cr>', {})
-
 -- remap 0 to first non-blank character
 map('', '0', '^', {})
 
@@ -280,9 +277,9 @@ map('', '0', '^', {})
 function lsp_highlights(ns)
     local colors = {
         Error = "#cc241d",
-        Warning = "#d79921",
+        Warn = "#d79921",
         Reference = "#d79921",
-        Information = "#d79921",
+        Info = "#d79921",
         Hint = "#d79921"
     }
 
@@ -295,11 +292,11 @@ function lsp_highlights(ns)
     cmd('highlight LspReferenceText gui=underline')
     cmd('highlight LspReferenceWrite gui=underline')
 
-    for _, level in pairs({'Error'; 'Warning'; 'Information'; 'Hint'}) do
-        cmd('highlight LspDiagnosticsSign' .. level .. ' guifg=' .. colors[level])
-        cmd('highlight LspDiagnosticsVirtualText' .. level .. ' guifg=' .. colors[level])
-        cmd('highlight LspDiagnosticsUnderline' .. level .. ' guifg=' .. colors[level])
-        cmd('highlight LspDiagnosticsFloating' .. level .. ' guifg=' .. colors[level])
+    for _, level in pairs({'Error'; 'Warn'; 'Info'; 'Hint'}) do
+        cmd('highlight DiagnosticSign' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight DiagnosticVirtualText' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight DiagnosticUnderline' .. level .. ' guifg=' .. colors[level])
+        cmd('highlight DiagnosticFloating' .. level .. ' guifg=' .. colors[level])
     end
 
     -- underline and bold errors
