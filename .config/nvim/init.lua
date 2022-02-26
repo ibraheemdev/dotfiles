@@ -14,6 +14,7 @@ local fn = vim.fn
 local cmd = vim.cmd
 local api = vim.api
 local hl = vim.api.nvim_set_hl
+local diagnostic = vim.diagnostic
 local exec = vim.api.nvim_exec
 local sign = vim.fn.sign_define
 local map = vim.api.nvim_set_keymap
@@ -475,9 +476,8 @@ g.lightline = {
         right = { { 'close' } },
     },
     component_expand = {
-        lsp_info = '{ -> luaeval(\'LspStatus([[Info]], [[I]])\') }',
-        lsp_warnings = '{ -> luaeval(\'LspStatus([[Warn]], [[W]])\') }',
-        lsp_errors = '{ -> luaeval(\'LspStatus([[Error]], [[E]])\') }',
+        lsp_errors = '{ -> luaeval(\'LspStatus(vim.diagnostic.severity.ERROR, [[E]])\') }',
+        lsp_warnings = '{ -> luaeval(\'LspStatus(vim.diagnostic.severity.WARN, [[W]])\') }',
         lsp_ok = '{ -> luaeval(\'LspOk()\') }',
         buffers = 'lightline#bufferline#buffers'
     },
@@ -490,6 +490,7 @@ g.lightline = {
     },
 }
 
+
 g['lightline#bufferline#enable_devicons'] = 1
 
 vim.api.nvim_exec([[
@@ -499,36 +500,49 @@ vim.api.nvim_exec([[
     augroup END
 ]], false)
 
-function _G.LspStatus(kind, sym)
-    if next(vim.lsp.buf_get_clients(0)) == nil then
+
+function _G.LspStatus(severity, sym)
+    if next(vim.lsp.buf_get_clients(0)) == 0 then
         return ''
     end
 
-    local count = 0 -- vim.lsp.diagnostic.get_count(0, kind)
+    local bufnr = vim.api.nvim_get_current_buf()
+    local diagnostics = diagnostic.get(bufnr, { severity = severity })
+    local count = 0
+
+    for _, diagnostic in ipairs(diagnostics) do
+      namespace = diagnostic.get_namespace(diagnostic.namespace).name
+      if vim.startswith(namespace, 'vim.lsp') then
+        count = count + 1
+      end
+    end
 
     if count == 0 then 
-        return '' 
+        return ''
     else 
         return sym .. ': ' .. count
     end
 end
 
 function _G.LspOk()
-    if next(vim.lsp.buf_get_clients(0)) == nil then
+    if next(vim.lsp.buf_get_clients(0)) == 0 then
         return ''
     end
 
-    local diagnostics = vim.diagnostic.get(0)
-    local count = 0
+    local bufnr = vim.api.nvim_get_current_buf()
+    local diagnostics = diagnostic.get(bufnr)
+    local ok = true
+
     for _, diagnostic in ipairs(diagnostics) do
-        if vim.startswith(vim.diagnostic.get_namespace(diagnostic.namespace).name, 'vim.lsp') then
-            count = count + 1
-        end
+      namespace = diagnostic.get_namespace(diagnostic.namespace).name
+      if vim.startswith(namespace, 'vim.lsp') then
+          ok = false
+      end
     end
 
-    if count == 0 then
+    if ok then 
         return 'OK'
-    else
+    else 
         return ''
     end
 end
