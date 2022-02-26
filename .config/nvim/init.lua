@@ -42,8 +42,11 @@ paq 'neovim/nvim-lspconfig'
 paq 'elixir-editors/vim-elixir'
 paq 'evanleck/vim-svelte'
 
--- temporary until: https://github.com/nvim-lua/completion-nvim/pull/400
-paq { 'rafaelsq/completion-nvim', branch = 'changeHandlerSignature' }
+paq 'hrsh7th/cmp-nvim-lsp'
+paq 'hrsh7th/cmp-buffer'
+paq 'hrsh7th/cmp-path'
+paq 'hrsh7th/cmp-cmdline'
+paq 'hrsh7th/nvim-cmp'
 
 -- provides inlay hints for rust-analyzer
 paq 'nvim-lua/lsp_extensions.nvim'
@@ -215,6 +218,7 @@ g.mapleader = termcodes'<Space>'
 -- jump to start/end of line
 map('', 'H', '^', {})
 map('', 'L', '$', {})
+map('', 'Y', 'yy', {})
 
 -- easier to type
 map('n', ';', ':', { noremap = true })
@@ -312,6 +316,47 @@ function lsp_highlights(ns)
     cmd('highlight NormalFloat guifg=#dadada guibg=#3c3836')
 end
 
+local cmp = require'cmp'
+
+cmp.setup({
+  mapping = {
+    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }
+  --{
+  --  { name = 'buffer' },
+  --}
+  )
+})
+
+-- cmp.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline' }
+--   })
+-- })
+
+local completion = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- set up common functionality for LSP servers
 function on_attach(client, bufnr)
   local function bmap(a, b, c) vim.api.nvim_buf_set_keymap(bufnr, a, b, c, { noremap = true, silent = true }) end
@@ -326,9 +371,9 @@ function on_attach(client, bufnr)
   bmap('n', 'fs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
   bmap('n', 'fn', '<cmd>lua vim.lsp.buf.rename()<CR>')
   bmap('n', 'fr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  bmap('n', 'fc', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  bmap('n', 'fh', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  bmap('n', 'fl', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  bmap('n', 'fc', '<cmd>lua vim.diagnostic.open_float()<CR>')
+  bmap('n', 'fh', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+  bmap('n', 'fl', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
@@ -340,9 +385,6 @@ function on_attach(client, bufnr)
   -- symbol highlighting
   local ns = api.nvim_create_namespace('lsp-highlight')
   lsp_highlights(ns)
-
-  -- autocompletion
-  require('completion').on_attach()
 end
 
 -- default rust analyzer config
@@ -380,6 +422,7 @@ end
 lsp.rust_analyzer.setup({
     on_attach = on_attach,
     settings = { ["rust-analyzer"] = rust_analyzer },
+    capabilities = completion
 })
 
 -- .NET LSP
@@ -392,7 +435,8 @@ lsp.rust_analyzer.setup({
 -- go LSP
 lsp.gopls.setup({
     on_attach = on_attach,
-    cmd = { "/home/ibraheem/go/bin/gopls" };
+    cmd = { "/home/ibraheem/go/bin/gopls" },
+    capabilities = completion
 })
 
 -- navigate auto-completion menu
@@ -432,7 +476,7 @@ g.lightline = {
     },
     component_expand = {
         lsp_info = '{ -> luaeval(\'LspStatus([[Info]], [[I]])\') }',
-        lsp_warnings = '{ -> luaeval(\'LspStatus([[Warning]], [[W]])\') }',
+        lsp_warnings = '{ -> luaeval(\'LspStatus([[Warn]], [[W]])\') }',
         lsp_errors = '{ -> luaeval(\'LspStatus([[Error]], [[E]])\') }',
         lsp_ok = '{ -> luaeval(\'LspOk()\') }',
         buffers = 'lightline#bufferline#buffers'
@@ -451,7 +495,7 @@ g['lightline#bufferline#enable_devicons'] = 1
 vim.api.nvim_exec([[
     augroup lightline#lsp
       autocmd!
-      autocmd User LspDiagnosticsChanged call lightline#update()
+      autocmd DiagnosticChanged * call lightline#update()
     augroup END
 ]], false)
 
@@ -459,7 +503,9 @@ function _G.LspStatus(kind, sym)
     if next(vim.lsp.buf_get_clients(0)) == nil then
         return ''
     end
-    local count = vim.lsp.diagnostic.get_count(0, kind)
+
+    local count = 0 -- vim.lsp.diagnostic.get_count(0, kind)
+
     if count == 0 then 
         return '' 
     else 
@@ -471,12 +517,16 @@ function _G.LspOk()
     if next(vim.lsp.buf_get_clients(0)) == nil then
         return ''
     end
-    local h = vim.lsp.diagnostic.get_count(0, 'Hint')
-    local w = vim.lsp.diagnostic.get_count(0, 'Warning')
-    local e = vim.lsp.diagnostic.get_count(0, 'Error')
-    local i = vim.lsp.diagnostic.get_count(0, 'Info')
 
-    if h + w + e + i == 0 then
+    local diagnostics = vim.diagnostic.get(0)
+    local count = 0
+    for _, diagnostic in ipairs(diagnostics) do
+        if vim.startswith(vim.diagnostic.get_namespace(diagnostic.namespace).name, 'vim.lsp') then
+            count = count + 1
+        end
+    end
+
+    if count == 0 then
         return 'OK'
     else
         return ''
