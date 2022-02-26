@@ -1,6 +1,6 @@
 [user]
 	name = Ibraheem Ahmed
-	email = ibrah1440@gmail.com
+	email = ibraheem@ibraheem.ca
 [core]
 	editor = nvim
 	excludesFile = ~/.gitignore

@@ -19,15 +19,17 @@ alias cw='cargo watch'
 alias ct='cargo test'
 
 # ripgrep: a faster grep that respects .gitignore
-alias grep='rg'
+alias grep="rg"
 
 # vim
-alias v='nvim'
-alias vimrc='v ~/.config/nvim/init.vim'
-alias zshrc='v ~/.zshrc'
+alias v="nvim"
+alias vimrc="v ~/.config/nvim/init.vim"
+alias zshrc="v ~/.zshrc"
 
 # tokei: count lines of code, fast
 alias cloc="tokei"
 alias calc="insect"
 
 alias find="fd"
+alias rm="echo Use 'trash' instead"
+alias wifi="nmtui"
