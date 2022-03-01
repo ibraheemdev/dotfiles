@@ -14,7 +14,6 @@ local fn = vim.fn
 local cmd = vim.cmd
 local api = vim.api
 local hl = vim.api.nvim_set_hl
-local diagnostic = vim.diagnostic
 local exec = vim.api.nvim_exec
 local sign = vim.fn.sign_define
 local map = vim.api.nvim_set_keymap
@@ -507,11 +506,11 @@ function _G.LspStatus(severity, sym)
     end
 
     local bufnr = vim.api.nvim_get_current_buf()
-    local diagnostics = diagnostic.get(bufnr, { severity = severity })
+    local diagnostics = vim.diagnostic.get(bufnr, { severity = severity })
     local count = 0
 
     for _, diagnostic in ipairs(diagnostics) do
-      namespace = diagnostic.get_namespace(diagnostic.namespace).name
+      namespace = vim.diagnostic.get_namespace(diagnostic.namespace).name
       if vim.startswith(namespace, 'vim.lsp') then
         count = count + 1
       end
@@ -530,11 +529,11 @@ function _G.LspOk()
     end
 
     local bufnr = vim.api.nvim_get_current_buf()
-    local diagnostics = diagnostic.get(bufnr)
+    local diagnostics = vim.diagnostic.get(bufnr)
     local ok = true
 
     for _, diagnostic in ipairs(diagnostics) do
-      namespace = diagnostic.get_namespace(diagnostic.namespace).name
+      namespace = vim.diagnostic.get_namespace(diagnostic.namespace).name
       if vim.startswith(namespace, 'vim.lsp') then
           ok = false
       end
