@@ -34,6 +34,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill window
 bindsym $mod+Shift+q kill
 
+# screenshot
+bindsym $mod+Shift+s exec flameshot gui
+
 # start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun
 
