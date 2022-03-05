@@ -40,8 +40,7 @@ modules-left = i3
 modules-center = 
 modules-right = audio memory cpu temperature date powermenu
 
-tray-position = right
-tray-padding = 5
+tray-position = none
 
 cursor-click = pointer
 cursor-scroll = ns-resize
