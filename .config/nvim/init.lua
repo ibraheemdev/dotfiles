@@ -42,11 +42,12 @@ paq 'neovim/nvim-lspconfig'
 paq 'elixir-editors/vim-elixir'
 paq 'evanleck/vim-svelte'
 
-paq 'hrsh7th/cmp-nvim-lsp'
-paq 'hrsh7th/cmp-buffer'
-paq 'hrsh7th/cmp-path'
-paq 'hrsh7th/cmp-cmdline'
 paq 'hrsh7th/nvim-cmp'
+paq 'hrsh7th/cmp-nvim-lsp'
+
+-- nvim-cmp requires a snippet engine for <enter> completion
+paq 'L3MON4D3/LuaSnip'
+paq 'saadparwaiz1/cmp_luasnip'
 
 -- provides inlay hints for rust-analyzer
 paq 'nvim-lua/lsp_extensions.nvim'
@@ -304,13 +305,14 @@ function lsp_highlights(ns)
     end
 
     -- underline and bold errors
-    cmd('highlight LspDiagnosticsUnderlineError gui=underline,bold')
+    cmd('highlight DiagnosticUnderlineError gui=underline,bold')
+    cmd('highlight DiagnosticUnderlineWarn gui=underline')
 
     -- set diagnostic symbols
-    sign("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsSignError"})
-    sign("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsSignWarning"})
-    sign("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsSignInformation"})
-    sign("LspDiagnosticsSignHint", {text = "", texthl = "LspDiagnosticsSignHint"})
+    sign("DiagnosticSignError", {text = "", texthl = "DiagnosticSignError"})
+    sign("DiagnosticSignWarn", {text = "", texthl = "DiagnosticSignWarn"})
+    sign("DiagnosticSignInfo", {text = "", texthl = "DiagnosticSignInfo"})
+    sign("DiagnosticSignHint", {text = "", texthl = "DiagnosticSignHint"})
 
     -- display float windows like diagnostic and hover
     cmd('highlight NormalFloat guifg=#dadada guibg=#3c3836')
@@ -319,6 +321,11 @@ end
 local cmp = require'cmp'
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
   mapping = {
     ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -334,26 +341,9 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-  }
-  --{
-  --  { name = 'buffer' },
-  --}
-  )
+    { name = 'luasnip' },
+  })
 })
-
--- cmp.setup.cmdline('/', {
---   sources = {
---     { name = 'buffer' }
---   }
--- })
-
--- cmp.setup.cmdline(':', {
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   })
--- })
 
 local completion = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
