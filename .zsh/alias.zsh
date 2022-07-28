@@ -1,11 +1,12 @@
 # dotfiles repo
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+alias cl="clear"
+
 # exa: a modern replacement for ‘ls’.
 alias ls='exa'
 alias la='exa -a'
-alias ll='exa -l --git'
-alias lll='exa -la --git'
+alias ll='exa -la --git'
 alias tree='exa --tree'
 
 # bat: a cat clone with wings. 

@@ -60,3 +60,5 @@ prompt {
 window {
   transparency: "real";
 }
+
+@theme "/usr/share/rofi/themes/slate.rasi"

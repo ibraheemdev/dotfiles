@@ -2,7 +2,8 @@
 ZSH_THEME="robbyrussell"
 
 # plugins
-plugins=(zsh-autosuggestions)
+plugins+=(zsh-autosuggestions)
+# plugins+=(zsh-vi-mode)
 
 # initialize oh my zsh
 export ZSH="/home/ibraheem/.oh-my-zsh"

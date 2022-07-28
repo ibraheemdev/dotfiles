@@ -3,7 +3,8 @@ set $mod Mod1
 font "NotoSans Nerd Font"
 
 # UI colors
-client.focused          #3c3836 #3c3836 #a89984 #292d2e   #222222
+# client.focused          #3c3836 #3c3836 #a89984 #292d2e   #222222
+client.focused          #282828 #5f676a #ffffff #484e50   #5f676a
 client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #3c3836 #3c3836 #a89984 #292d2e   #222222
 client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
@@ -29,7 +30,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty --single-instance
 
 # kill window
 bindsym $mod+Shift+q kill
@@ -110,14 +111,15 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 
 # resize windows
 bindsym $mod+r mode "resize"
-mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
 
-        # exit resize mode
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    
+    # exit resize mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }

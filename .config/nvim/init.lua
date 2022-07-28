@@ -25,6 +25,7 @@ local map = vim.api.nvim_set_keymap
 -- Blazing fast pure lua statusline
 paq 'itchyny/lightline.vim'
 paq 'mengelbrecht/lightline-bufferline'
+paq 'ellisonleao/gruvbox.nvim'
 
 -- base16 color schemes.
 paq 'chriskempson/base16-vim'
@@ -170,8 +171,12 @@ if fn.exists('+termguicolors') then
 end
 
 -- colorscheme
-g.colors_name = 'base16-gruvbox-dark-hard'
-o.background = 'dark'
+-- g.colors_name = 'base16-gruvbox-dark-hard'
+-- o.background = 'dark'
+
+g.gruvbox_contrast_dark =  'hard'
+vim.opt.background = "dark"
+vim.cmd([[colorscheme gruvbox]])
 
 -- syntax highlighting for markdown code blocks
 g.markdown_fenced_languages = {'rust', 'ruby', 'go', 'yaml'}
@@ -408,21 +413,25 @@ if f ~= nil then
     end
 end
  
--- rust LSP
 lsp.rust_analyzer.setup({
     on_attach = on_attach,
     settings = { ["rust-analyzer"] = rust_analyzer },
     capabilities = completion
 })
 
--- .NET LSP
 -- lsp.omnisharp.setup({
 --     on_attach = on_attach,
 --     cmd = { "mono", "/home/ibraheem/.dotnet/omnisharp-new/omnisharp/OmniSharp.exe", "--hostPID", tostring(fn.getpid()), "--loglevel", "Debug", "--languageserver" };
 -- })
 
 
--- go LSP
+lsp.clangd.setup({
+    on_attach = on_attach,
+    cmd = { "clangd" },
+    capabilities = completion
+})
+
+
 lsp.gopls.setup({
     on_attach = on_attach,
     cmd = { "/home/ibraheem/go/bin/gopls" },
