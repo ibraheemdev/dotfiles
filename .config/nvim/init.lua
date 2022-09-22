@@ -71,6 +71,8 @@ paq 'preservim/nerdtree'
 -- Viewer & Finder for LSP symbols and tags 
 paq 'liuchengxu/vista.vim'
 
+paq 'vim-latex/vim-latex'
+
 -- ===========================================
 -- UTILS
 -- ===========================================
@@ -278,6 +280,16 @@ map('n', '<C-l>', ':wincmd l<CR>', { silent = true })
 
 -- remap 0 to first non-blank character
 map('', '0', '^', {})
+
+-- ===========================================
+-- MARKDOWN MATHJAX
+-- ===========================================
+--
+vim.api.nvim_exec([[
+    autocmd FileType markdown inoremap <buffer> ^^ ^{}<left>
+    autocmd FileType markdown inoremap <buffer> __ _{}<left>
+    autocmd FileType markdown inoremap <buffer> $$ $$  $$<left><left><left>
+]], false)
 
 -- ===========================================
 -- LANGUAGE SERVER
