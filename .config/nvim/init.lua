@@ -288,7 +288,8 @@ map('', '0', '^', {})
 vim.api.nvim_exec([[
     autocmd FileType markdown inoremap <buffer> ^^ ^{}<left>
     autocmd FileType markdown inoremap <buffer> __ _{}<left>
-    autocmd FileType markdown inoremap <buffer> $$ $$  $$<left><left><left>
+    autocmd FileType markdown inoremap <buffer> (( \\(  \\)<left><left><left><left>
+    autocmd FileType markdown inoremap <buffer> [[ \\[  \\]<left><left><left><left>
 ]], false)
 
 -- ===========================================

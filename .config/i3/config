@@ -3,8 +3,8 @@ set $mod Mod1
 font "NotoSans Nerd Font"
 
 # UI colors
-# client.focused          #3c3836 #3c3836 #a89984 #292d2e   #222222
-client.focused          #282828 #5f676a #ffffff #484e50   #5f676a
+client.focused          #3c3836 #3c3836 #a89984 #292d2e   #3c3836
+# client.focused          #282828 #5f676a #ffffff #484e50   #5f676a
 client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #3c3836 #3c3836 #a89984 #292d2e   #222222
 client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
@@ -12,7 +12,8 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # disable window title bar
-new_window 1pixel
+new_window pixel 1
+hide_edge_borders both
 
 # thicker borders for floats
 new_float pixel 10
@@ -107,7 +108,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -B 'Yup, why else would I click the button?' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -B 'Yes.' 'i3-msg exit'"
 
 # resize windows
 bindsym $mod+r mode "resize"
