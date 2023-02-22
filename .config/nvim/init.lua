@@ -172,10 +172,9 @@ if fn.exists('+termguicolors') then
     o.termguicolors = true
 end
 
--- colorscheme
--- g.colors_name = 'base16-gruvbox-dark-hard'
--- o.background = 'dark'
+g.goyo_width = 100
 
+-- colorscheme
 g.gruvbox_contrast_dark =  'hard'
 vim.opt.background = "dark"
 vim.cmd([[colorscheme gruvbox]])
