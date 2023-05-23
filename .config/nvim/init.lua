@@ -383,11 +383,10 @@ function on_attach(client, bufnr)
   bmap('n', 'fl', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
   -- formatting
-  if client.resolved_capabilities.document_formatting then
-    bmap("n", "fm", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  elseif client.resolved_capabilities.document_range_formatting then
-    bmap("n", "fm", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
-  end
+  vim.keymap.set("n", "fm", function()
+      vim.lsp.buf.format { async = true }
+  end, opts)
+
 
   -- symbol highlighting
   local ns = api.nvim_create_namespace('lsp-highlight')
