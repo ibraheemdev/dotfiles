@@ -237,6 +237,8 @@ map('', '<leader>s', ':Rg ', { noremap = true })
 map('n', '<leader>l', ':bnext<CR>', { noremap = true })
 map('n', '<leader>h', ':bprev<CR>', { noremap = true })
 
+map('v', 'y', 'ygv<Esc>', { noremap = true })
+
 -- close current buffer
 -- move to previous buffer, close the last one (to keep split positions)
 map('n', '<leader>d', ':bp|bd #<CR>', { noremap = true })
@@ -427,6 +429,11 @@ end
 lsp.rust_analyzer.setup({
     on_attach = on_attach,
     settings = { ["rust-analyzer"] = rust_analyzer },
+    capabilities = completion
+})
+
+lsp.pyright.setup({
+    on_attach = on_attach,
     capabilities = completion
 })
 
