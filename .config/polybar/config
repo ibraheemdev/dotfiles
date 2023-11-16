@@ -28,45 +28,23 @@ border-right-size = 0
 border-top-size = 0
 border-color = #00000000
 
+padding-top = 1
 padding-left = 0
-padding-right = 1
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 3
 
-font-0 = RobotoMono Nerd Font:pixelsize=10;1
+font-0 = RobotoMono Nerd Font:pixelsize=9;1
 
 modules-left = i3
 modules-center = 
-modules-right = audio memory cpu temperature date powermenu
+modules-right = audio memory cpu date
 
 tray-position = none
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[module/network]
-type = "internal/network"
-interface = "wlp4s0"
-interval = 3.0
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.teal}
-format-prefix-underline = ${colors.teal}
-format-foreground = ${colors.teal}
-
-label-layout = %layout%
-label-layout-underline = ${colors.teal}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.teal}
-label-indicator-underline = ${colors.teal}
-
 
 [module/i3]
 type = internal/i3
@@ -144,51 +122,6 @@ click-left = ~/.config/polybar/audio.bash togmute
 click-middle = ~/.config/polybar/audio.bash next-sink
 scroll-up = ~/.config/polybar/audio.bash --volume-max 130 up
 scroll-down = ~/.config/polybar/audio.bash --volume-max 130 down
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 75
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = WOAH <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.blue}
-
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
-
-ramp-0 = 
-ramp-1 =  
-ramp-2 =  
-ramp-foreground = ${colors.blue}
-label-foreground = ${colors.blue}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.foreground}
-label-close =  cancel
-label-close-foreground = ${colors.foreground}
-label-separator = |
-label-separator-foreground = ${colors.foreground}
-
-menu-0-0 = reboot
-menu-0-0-exec = reboot
-
-menu-0-1 = power off
-menu-0-1-exec = poweroff
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
 
 [global/wm]
 margin-top = 5
