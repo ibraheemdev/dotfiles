@@ -2,8 +2,8 @@
 -- IMPORTS
 -- ===========================================
 
-local paq = require('paq').paq
 local lsp = require('lspconfig')
+local paq = require('paq')
 
 local o = vim.o
 local g = vim.g
@@ -22,56 +22,48 @@ local map = vim.api.nvim_set_keymap
 -- PLUGINS
 -- ===========================================
 
--- Blazing fast pure lua statusline
-paq 'itchyny/lightline.vim'
-paq 'mengelbrecht/lightline-bufferline'
-paq 'ellisonleao/gruvbox.nvim'
-
--- base16 color schemes.
-paq 'chriskempson/base16-vim'
-
--- changes working directory to git root.
-paq 'airblade/vim-rooter'
-
--- a command-line fuzzy finder.
-paq 'junegunn/fzf'
-paq 'junegunn/fzf.vim'
-
--- configuration for Neovim's LSP.
-paq 'neovim/nvim-lspconfig'
-
-paq 'elixir-editors/vim-elixir'
-paq 'evanleck/vim-svelte'
-
-paq 'hrsh7th/nvim-cmp'
-paq 'hrsh7th/cmp-nvim-lsp'
-
--- nvim-cmp requires a snippet engine for <enter> completion
-paq 'L3MON4D3/LuaSnip'
-paq 'saadparwaiz1/cmp_luasnip'
-
--- provides inlay hints for rust-analyzer
-paq 'nvim-lua/lsp_extensions.nvim'
-
--- tOML syntax highlighting.
-paq { 'cespare/vim-toml', branch = 'main' }
-
--- jsx/tsx syntax highlighting.
-paq 'MaxMEllon/vim-jsx-pretty'
-
--- distraction-free writing.
-paq 'junegunn/goyo.vim'
-
 -- disable netrw
 g.loaded_netrwPlugin = false
 
--- because NERDTree is better
-paq 'preservim/nerdtree'
+paq {
+  -- statusline
+  'itchyny/lightline.vim',
+  'mengelbrecht/lightline-bufferline',
 
--- Viewer & Finder for LSP symbols and tags 
-paq 'liuchengxu/vista.vim'
-
-paq 'vim-latex/vim-latex'
+  -- colorscheme
+  'ellisonleao/gruvbox.nvim',
+  
+  -- changes working directory to git root.
+  'airblade/vim-rooter',
+  
+  -- a command-line fuzzy finder.
+  'junegunn/fzf',
+  'junegunn/fzf.vim',
+  
+  -- LSP
+  'neovim/nvim-lspconfig',
+  
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  
+  -- nvim-cmp requires a snippet engine for <enter> completion
+  'L3MON4D3/LuaSnip',
+  'saadparwaiz1/cmp_luasnip',
+  
+  -- provides inlay hints for rust-analyzer
+  'nvim-lua/lsp_extensions.nvim',
+  
+  -- syntax highlighting.
+  'MaxMEllon/vim-jsx-pretty',
+  'vim-latex/vim-latex',
+  { 'cespare/vim-toml', branch = 'main' },
+  
+  -- distraction-free writing.
+  'junegunn/goyo.vim',
+  
+  -- NERDTree
+  'preservim/nerdtree'
+}
 
 -- ===========================================
 -- UTILS
@@ -93,7 +85,7 @@ end
 -- GENERAL CONFIGURATION 
 -- ===========================================
 
--- I don't need vi compat
+-- no vi compat
 vim.o.compatible = false
 o.encoding = 'utf-8'
 
@@ -175,9 +167,9 @@ end
 g.goyo_width = 100
 
 -- colorscheme
-g.gruvbox_contrast_dark =  'hard'
-vim.opt.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
+require("gruvbox").setup({ contrast = "hard" })
+o.background = "dark"
+vim.cmd("colorscheme gruvbox")
 
 -- syntax highlighting for markdown code blocks
 g.markdown_fenced_languages = {'rust', 'ruby', 'go', 'yaml'}
@@ -251,9 +243,6 @@ map('', '<leader>b', ':Buffers<CR>', {})
 
 -- command search (fzf)
 map('', '<leader>c', ':Commands<CR>', {})
-
--- tags listing (vista)
-map('', '<leader>v', ':Vista<CR>', {})
 
 -- open fzf files searcher
 map('', '<C-p>', ':Files<CR>', {})
@@ -466,14 +455,6 @@ o.completeopt = 'menuone,noselect'
 -- avoid showing messages when using completion
 o.shortmess = o.shortmess .. 'c'
 
--- rust-analyzer inlay hints
--- function inlay_hints()
---     require('lsp_extensions').inlay_hints({
---         enabled = { "ChainingHint", "ParameterHint", "TypeHint" }
---     })
--- end
--- cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua inlay_hints()')
-
 -- ===========================================
 -- STATUSLINE
 -- ===========================================
@@ -563,6 +544,7 @@ function _G.LspOk()
     end
 end
 
+-- for rustc dev:
 -- local rust_analyzer = {
 --     checkOnSave = {
 --         overrideCommand = {
