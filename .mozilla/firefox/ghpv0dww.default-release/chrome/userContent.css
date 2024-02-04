@@ -1,0 +1,3 @@
+@-moz-document url-prefix(file://){
+ #UI_showHidden, .hidden-object {display:none!important}
+}
