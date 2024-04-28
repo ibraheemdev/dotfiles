@@ -54,17 +54,17 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# split horizontally
+# split horizontally/vertically
 bindsym $mod+t split h
-
-# split vertically
 bindsym $mod+v split v
+
+# split into a nested stacked window
+bindsym $mod+s split v, layout stacking
 
 # fullscreen
 bindsym $mod+f fullscreen toggle
 
-# toggle layout
-bindsym $mod+s layout stacking
+# layout
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
