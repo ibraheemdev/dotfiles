@@ -1,3 +1,4 @@
+export EDITOR=nvim;
 set RANGER_LOAD_DEFAULT_RC=FALSE
 set XDG_DOWNLOAD_DIR="~/downloads"
 

@@ -55,7 +55,6 @@ paq {
   
   -- syntax highlighting.
   'MaxMEllon/vim-jsx-pretty',
-  'vim-latex/vim-latex',
   { 'cespare/vim-toml', branch = 'main' },
   
   -- distraction-free writing.
@@ -263,10 +262,10 @@ end
 map('n', '<leader>n', ':NERDTreeToggle<CR>', { noremap = true })
 
 -- navigate windows
-map('n', '<C-k>', ':wincmd k<CR>', { silent = true })
-map('n', '<C-j>', ':wincmd j<CR>', { silent = true })
-map('n', '<C-h>', ':wincmd h<CR>', { silent = true })
-map('n', '<C-l>', ':wincmd l<CR>', { silent = true })
+map('', '<C-k>', '<C-w>k', { silent = true })
+map('', '<C-j>', '<C-w>j', { silent = true })
+map('', '<C-h>', '<C-w>h', { silent = true })
+map('', '<C-l>', '<C-w>l', { silent = true })
 
 -- remap 0 to first non-blank character
 map('', '0', '^', {})
