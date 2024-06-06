@@ -352,7 +352,7 @@ cmp.setup({
   })
 })
 
-local completion = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local completion = require('cmp_nvim_lsp').default_capabilities()
 
 -- set up common functionality for LSP servers
 function on_attach(client, bufnr)

@@ -42,6 +42,9 @@ bindsym $mod+Shift+s exec flameshot gui
 # start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun
 
+# switch keyboard layout
+bindsym $mod+underscore exec /home/ibraheem/.zsh/scripts/switch-kb-layout.sh
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
