@@ -8,4 +8,5 @@ source ~/.zsh/path.zsh
 source ~/.zsh/utils.zsh
 source ~/.zsh/git-alias.zsh
 source ~/.zsh/misc.zsh
+
 . "$HOME/.cargo/env"

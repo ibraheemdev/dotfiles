@@ -4,6 +4,10 @@
 [core]
 	editor = nvim
 	excludesFile = ~/.gitignore
+[push]
+	autoSetupRemote = true
+
+# delta pager
 [pager]
     diff = delta
     log = delta
@@ -18,5 +22,15 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
-[push]
-	autoSetupRemote = true
+
+# difftastic (`git dft`)
+[diff]
+    tool = difftastic
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+    difftool = true
+[alias]
+    dft = difftool
