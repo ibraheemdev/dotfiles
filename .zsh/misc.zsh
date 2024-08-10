@@ -4,6 +4,4 @@ set XDG_DOWNLOAD_DIR="~/downloads"
 
 eval `keychain --eval --quiet --agents ssh id_ed25519`
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+alias myip="ip -json route get 8.8.8.8 | jq -r '.[].prefsrc'"
