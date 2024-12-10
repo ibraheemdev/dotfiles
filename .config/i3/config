@@ -12,11 +12,11 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # disable window title bar
-new_window pixel 1
-hide_edge_borders both
+# new_window pixel 1
+# hide_edge_borders both
 
 # thicker borders for floats
-new_float pixel 10
+# new_float pixel 10
 
 # polybar
 exec polybar main

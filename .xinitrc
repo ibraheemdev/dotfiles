@@ -7,12 +7,8 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-xrandr --dpi 96 
-
-xmodmap -e "clear Lock"
-xmodmap -e "keycode 9 = Caps_Lock"
-xmodmap -e "keycode 66 = Escape"
-xmodmap -e "add Lock = Caps_Lock"
+# set refresh rate
+xrandr --output HDMI-0 --mode 2560x1440 --rate 144.00
 
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources

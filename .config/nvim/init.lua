@@ -444,6 +444,17 @@ lsp.gopls.setup({
     capabilities = completion
 })
 
+lsp.ruby_lsp.setup({
+    on_attach = on_attach,
+    init_options = { formatter = 'standard', linters = { 'standard' } },
+    capabilities = completion
+})
+
+lsp.zls.setup({
+    on_attach = on_attach,
+    capabilities = completion
+})
+
 -- navigate auto-completion menu
 map('i', '<Tab>', 'v:lua.smart_tab()', { noremap = true, expr = true })
 map('i', '<S-Tab>', 'v:lua.smart_stab()', { noremap = true, expr = true })
