@@ -13,8 +13,9 @@ require('paq') {
   'airblade/vim-rooter',
   
   -- fuzzy finder
-  'junegunn/fzf',
-  'junegunn/fzf.vim',
+  'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope.nvim',
+  'nvim-telescope/telescope-ui-select.nvim',
   
   -- language server
   'neovim/nvim-lspconfig',
@@ -34,7 +35,10 @@ require('paq') {
   'junegunn/goyo.vim',
   
   -- file explorer
-  'preservim/nerdtree'
+  'preservim/nerdtree',
+
+  -- latex
+  'lervag/vimtex'
 }
 
 -- ===========================================
@@ -102,6 +106,11 @@ vim.g.formatoptions = 't,c,r,q,n,b'
 -- hide help menu
 vim.g.NERDTreeMinimalUI = true
 
+-- vimtex
+vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_compiler_latexmk = { out_dir = '.build' }
+vim.g.vimtex_quickfix_open_on_warning = 0
+
 -- ===========================================
 -- KEYMAPS
 -- ===========================================
@@ -120,27 +129,14 @@ map('', '\'', '\"0', { noremap = true })
 -- easier to type
 map('n', ';', ':', { noremap = true })
 
--- ripgrep
-map('', '<leader>s', ':Rg ', { noremap = true })
-
--- go to previous/next buffer
-map('n', '<leader>l', ':bnext<CR>', { noremap = true })
-map('n', '<leader>h', ':bprev<CR>', { noremap = true })
-
--- preserve cursor after yank
-map('v', 'y', 'ygv<Esc>', { noremap = true })
+-- go to previous buffer
+map('n', '<leader>o', ':b#<CR>', { noremap = true })
 
 -- close current buffer, preserving splits
 map('n', '<leader>d', ':bp|bd #<CR>', { noremap = true })
 
--- close current buffer
-map('n', '<leader><leader>', ':b#<CR>', { noremap = true })
-
--- buffer search
-map('', '<leader>b', ':Buffers<CR>')
-
--- files search
-map('', '<C-p>', ':Files<CR>')
+-- preserve cursor after yank
+map('v', 'y', 'ygv<Esc>', { noremap = true })
 
 -- suspend
 map({'i', 'v', 'n'}, '<C-f>', ':sus<CR>', { noremap = true })
@@ -154,6 +150,22 @@ map('', '<C-j>', '<C-w>j', { silent = true })
 map('', '<C-h>', '<C-w>h', { silent = true })
 map('', '<C-l>', '<C-w>l', { silent = true })
 
+--
+map('n', '<leader>c', ':VimtexCompile<CR>')
+
+-- fuzzy finders
+local defaults = require('telescope.themes').get_ivy()
+defaults.initial_mode = "normal"
+require('telescope').setup({ defaults = defaults })
+
+local telescope = require('telescope.builtin')
+
+map('', '<leader>p', telescope.find_files)
+map('', '<leader>k', function() telescope.buffers({ sort_mru = true, ignore_current = true }) end)
+map('', '<leader>s', telescope.live_grep)
+map('', '<leader>g', telescope.lsp_references)
+map('', '<leader>i', telescope.lsp_implementations)
+
 -- lsp keymaps
 function lsp_map()
   local function bmap(mode, lhs, rhs)
@@ -161,28 +173,22 @@ function lsp_map()
   end
 
   -- navigation
-  bmap('n', 'ft', vim.lsp.buf.type_definition)
-  bmap('n', 'fk', vim.lsp.buf.declaration)
-  bmap('n', 'fd', vim.lsp.buf.definition)
-  bmap('n', 'fa', vim.lsp.buf.code_action)
-  bmap('n', 'ff', vim.lsp.buf.hover)
-  bmap('n', 'fi', vim.lsp.buf.implementation)
-  bmap('n', 'fs', vim.lsp.buf.signature_help)
-  bmap('n', 'fn', vim.lsp.buf.rename)
-  bmap('n', 'fr', vim.lsp.buf.references)
-  bmap('n', 'fc', vim.diagnostic.open_float)
-  bmap('n', 'fh', vim.diagnostic.goto_prev)
-  bmap('n', 'fl', vim.diagnostic.goto_next)
+  bmap('n', '<leader>j', vim.lsp.buf.definition)
+  bmap('n', '<leader>a', vim.lsp.buf.code_action)
+  bmap('n', '<leader>r', vim.lsp.buf.rename)
+  bmap('n', '<leader>f', vim.diagnostic.open_float)
+  bmap('n', '<leader>h', vim.diagnostic.goto_prev)
+  bmap('n', '<leader>l', vim.diagnostic.goto_next)
 
   -- formatting
-  vim.keymap.set('n', 'fm', function()
+  vim.keymap.set('n', '<leader>m', function()
       vim.lsp.buf.format { async = true }
   end, opts)
 end
 
 -- latex shortcuts
 autocmd({ 'FileType' }, {
-    pattern = { "markdown" },
+    pattern = { "markdown", "tex" },
     callback = function()
         map('i', '^^', '^{}<left>', { noremap = true, buffer = true })
         map('i', '__', '_{}<left>', { noremap = true, buffer = true })
