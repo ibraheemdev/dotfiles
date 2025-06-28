@@ -154,9 +154,7 @@ map('', '<C-l>', '<C-w>l', { silent = true })
 map('n', '<leader>c', ':VimtexCompile<CR>')
 
 -- fuzzy finders
-local defaults = require('telescope.themes').get_ivy()
-defaults.initial_mode = "normal"
-require('telescope').setup({ defaults = defaults })
+require('telescope').setup({ defaults = require('telescope.themes').get_ivy() })
 
 local telescope = require('telescope.builtin')
 
@@ -173,6 +171,7 @@ function lsp_map()
   end
 
   -- navigation
+  bmap('n', '<leader>t', vim.lsp.buf.type_definition)
   bmap('n', '<leader>j', vim.lsp.buf.definition)
   bmap('n', '<leader>a', vim.lsp.buf.code_action)
   bmap('n', '<leader>r', vim.lsp.buf.rename)
@@ -187,15 +186,15 @@ function lsp_map()
 end
 
 -- latex shortcuts
-autocmd({ 'FileType' }, {
-    pattern = { "markdown", "tex" },
-    callback = function()
-        map('i', '^^', '^{}<left>', { noremap = true, buffer = true })
-        map('i', '__', '_{}<left>', { noremap = true, buffer = true })
-        map('i', '((', '\\(  \\)<left><left><left><left>', { noremap = true, buffer = true })
-        map('i', '[[', '\\[  \\]<left><left><left><left>', { noremap = true, buffer = true })
-    end
-})
+-- autocmd({ 'FileType' }, {
+--     pattern = { "markdown", "tex" },
+--     callback = function()
+--         map('i', '^^', '^{}<left>', { noremap = true, buffer = true })
+--         map('i', '__', '_{}<left>', { noremap = true, buffer = true })
+--         map('i', '((', '\\(  \\)<left><left><left><left>', { noremap = true, buffer = true })
+--         map('i', '[[', '\\[  \\]<left><left><left><left>', { noremap = true, buffer = true })
+--     end
+-- })
 
 -- ===========================================
 -- LANGUAGE SERVER
@@ -269,27 +268,38 @@ function on_attach(client, buf)
 
   -- symbol highlighting
   highlights()
-
-  -- workaround for https://github.com/neovim/neovim/issues/30985
-  for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-      local default_diagnostic_handler = vim.lsp.handlers[method]
-      vim.lsp.handlers[method] = function(err, result, context, config)
-          if err ~= nil and err.code == -32802 then
-              return
-          end
-          return default_diagnostic_handler(err, result, context, config)
-      end
-  end
 end
 
--- default rust analyzer configuration
-rust_analyzer = {
-    server = { path = '~/.cargo/bin/rust-analyzer' },
-    cargo = { allFeatures = true, loadOutDirsFromCheck = true },
-    procMacro = { enable = true }
+local completion = require('cmp_nvim_lsp').default_capabilities()
+
+-- LSP server config
+servers = {
+    zls      = {},
+    gopls    = {},
+    clangd   = {},
+    rust_analyzer = {
+        ['rust-analyzer'] = {
+            server = { path = '~/.cargo/bin/rust-analyzer' },
+            cargo = { allFeatures = true, loadOutDirsFromCheck = true },
+            procMacro = { enable = true }
+        }
+    },
+    ruby_lsp = {
+        init_options = { formatter = 'standard', linters = { 'standard' } },
+    },
+    -- pyright  = {},
+    ty = {
+        cmd = { '/home/ibraheem/dev/astral/ruff/target/profiling/ty', 'server' },
+        filetypes = { 'python' },
+        root_markers = {
+          'pyproject.toml',
+          '.git',
+        },
+        init_options = { settings = {} }
+    }
 }
 
--- project local configuration
+-- apply project local configuration
 local f = loadfile(vim.fn.getcwd() .. '/.lspconfig.lua')
 
 if f ~= nil then
@@ -300,32 +310,16 @@ if f ~= nil then
             print('applying local rust-analyzer config')
 
             for opt, val in pairs(cfg.rust_analyzer) do
-                rust_analyzer[opt] = val
+                servers.rust_analyzer.settings['rust-analyzer'][opt] = val
             end
         end
     end
 end
 
-local completion = require('cmp_nvim_lsp').default_capabilities()
-
--- LSP server config
-servers = {
-    zls      = {},
-    gopls    = {},
-    pyright  = {},
-    clangd   = {},
-    rust_analyzer = {
-        settings = { ['rust-analyzer'] = rust_analyzer },
-    },
-    ruby_lsp = {
-        init_options = { formatter = 'standard', linters = { 'standard' } },
-    },
-}
-
 local lsp = require('lspconfig')
-
 for server, config in pairs(servers) do
+    vim.lsp.enable(server)
     config.on_attach    = on_attach
-    config.capabilities = completion
-    lsp[server].setup(config)
+    -- config.capabilities = completion
+    vim.lsp.config(server, config)
 end

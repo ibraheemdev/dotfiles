@@ -1,1 +1,2 @@
 set scroll-step 60
+set guioptions 'sv'

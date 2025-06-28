@@ -17,5 +17,5 @@ sar() {
     search=$(trim_quotes $1)
     replace=$(trim_quotes $2)
 
-    rg -l "$search" $3 | xargs sed -i "s|$search|$replace|g"
+    rg -l -F "$search" $3 | xargs sed -i "s|$search|$replace|g"
 }
