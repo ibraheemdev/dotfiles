@@ -279,6 +279,7 @@ servers = {
     clangd   = {},
     rust_analyzer = {
         ['rust-analyzer'] = {
+            imports = { granularity = { group = "module" } },
             server = { path = '~/.cargo/bin/rust-analyzer' },
             cargo = { allFeatures = true, loadOutDirsFromCheck = true },
             procMacro = { enable = true }
@@ -289,7 +290,7 @@ servers = {
     },
     -- pyright  = {},
     ty = {
-        cmd = { '/home/ibraheem/dev/astral/ruff/target/profiling/ty', 'server' },
+        cmd = { '/home/ibraheem/dev/astral/ruff/target/debug/ty', 'server' },
         filetypes = { 'python' },
         root_markers = {
           'pyproject.toml',
@@ -299,18 +300,17 @@ servers = {
     }
 }
 
+
 -- apply project local configuration
 local f = loadfile(vim.fn.getcwd() .. '/.lspconfig.lua')
-
 if f ~= nil then
     local cfg = f()
-
     if cfg ~= nil then
         if cfg.rust_analyzer ~= nil then
             print('applying local rust-analyzer config')
-
+    
             for opt, val in pairs(cfg.rust_analyzer) do
-                servers.rust_analyzer.settings['rust-analyzer'][opt] = val
+                servers.rust_analyzer['rust-analyzer'][opt] = val
             end
         end
     end
@@ -318,8 +318,8 @@ end
 
 local lsp = require('lspconfig')
 for server, config in pairs(servers) do
-    vim.lsp.enable(server)
     config.on_attach    = on_attach
-    -- config.capabilities = completion
+    config.capabilities = completion
     vim.lsp.config(server, config)
+    vim.lsp.enable(server)
 end
