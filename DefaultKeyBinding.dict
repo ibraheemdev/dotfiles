@@ -1,0 +1,18 @@
+{
+  "~a" = (insertText:, "ā");
+  "~A" = (insertText:, "Ā");
+  "~d" = (insertText:, "ḍ");
+  "~D" = (insertText:, "Ḍ");
+  "~h" = (insertText:, "ḥ");
+  "~H" = (insertText:, "Ḥ");
+  "~i" = (insertText:, "ī");
+  "~I" = (insertText:, "Ī");
+  "~t" = (insertText:, "ṭ");
+  "~T" = (insertText:, "Ṭ");
+  "~u" = (insertText:, "ū");
+  "~U" = (insertText:, "Ū");
+  "~s" = (insertText:, "ṣ");
+  "~S" = (insertText:, "Ṣ");
+  "~z" = (insertText:, "ẓ");
+  "~Z" = (insertText:, "Ẓ");
+}
