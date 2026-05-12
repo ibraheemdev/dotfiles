@@ -1,14 +1,14 @@
 source ~/.zsh/oh-my-zsh.zsh
-# don't mess with my aliases 
 unalias -a
-source ~/.zsh/alias.zsh
 
-source ~/.zsh/fzf.zsh
+source ~/.zsh/local.zsh
+source ~/.zsh/alias.zsh
+source ~/.zsh/git-alias.zsh
 source ~/.zsh/path.zsh
 source ~/.zsh/utils.zsh
-source ~/.zsh/git-alias.zsh
-source ~/.zsh/misc.zsh
 
 bindkey -v
 
-. "$HOME/.cargo/env"
+if [[ "$(uname)" == "Linux" ]]; then
+    source ~/.zsh/linux.zsh
+fi

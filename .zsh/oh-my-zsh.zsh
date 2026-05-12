@@ -1,10 +1,7 @@
-# theme
+DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="robbyrussell"
 
-# plugins
-plugins+=(zsh-autosuggestions)
-# plugins+=(zsh-vi-mode)
-
-# initialize oh my zsh
-export ZSH="/home/ibraheem/.oh-my-zsh"
+zstyle ':omz:plugins:nvm' lazy yes
+plugins=(zsh-autosuggestions nvm)
+export ZSH="/Users/ibraheem/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh

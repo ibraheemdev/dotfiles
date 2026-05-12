@@ -6,4 +6,3 @@ path+="$HOME/.local/bin"
 
 export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
 path+="/usr/lib/jvm/java-21-openjdk"
-eval "$(rbenv init -)"

@@ -11,7 +11,6 @@ alias gd='git diff'
 alias gm='git merge'
 alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
-alias -s git="git clone"
 
 function gwip {
     git add -A;
