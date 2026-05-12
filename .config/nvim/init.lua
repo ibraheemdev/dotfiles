@@ -280,7 +280,6 @@ servers = {
     rust_analyzer = {
         ['rust-analyzer'] = {
             imports = { granularity = { group = "module" } },
-            server = { path = '~/.cargo/bin/rust-analyzer' },
             cargo = { allFeatures = true, loadOutDirsFromCheck = true },
             procMacro = { enable = true }
         }
